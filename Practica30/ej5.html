@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="inputTexto" placeholder="Escribe algo">
+    <button id="validar">Validar</button>
+    <p id="mensaje"></p>
+    <script>
+    document.getElementById('validar').addEventListener('click', function() {
+        const input=document.getElementById('inputTexto');
+        const mensaje=document.getElementById('mensaje');
+        const texto=input.value.trim();
+        if(texto){
+            mensaje.textContent='El texto es válido.';
+            mensaje.style.color='green';
+        }else{
+            mensaje.textContent='El texto no es válido. Por favor, ingresa algo.';
+            mensaje.style.color='red';
+        }
+
+
+
+    });
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="productos">
+    <button data-id="1" data-precio="750" data-producto="Laptop">Laptop</button>
+    <button data-id="2" data-precio="25" data-producto="Mouse">Mouse</button>
+    <button data-id="3" data-precio="45" data-producto="Teclado">Teclado</button>
+    <button data-id="7" data-precio="100" data-producto="Mouse">Comprar</button>
+    </div>
+    <div id="info"></div>
+    <script>
+        const contenedor = document.getElementById('productos');
+        const infoDiv = document.getElementById('info');
+        contenedor.addEventListener("click", (e) => {
+            // Accedemos a los datos con dataset
+            const id = e.target.dataset.id;
+            const nombre = e.target.dataset.producto;
+            const precio = e.target.dataset.precio;
+            infoDiv.innerHTML = `
+                <strong>Producto seleccionado:</strong><br>
+                🆔 ID: ${id}<br>
+                📦 Nombre: ${nombre}<br>
+                💰 Precio: $${precio}
+                `;
+
+        });
+        const item = document.querySelector(".item");
+console.log(item.parentNode);
+    </script>
+
+</body>
+
+</html>

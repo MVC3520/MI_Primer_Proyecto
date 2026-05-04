@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habilitar/Deshabilitar Botón</title>
+</head>
+<body>
+    <h1>Formulario de Ejemplo</h1>
+    
+    <input type="text" id="campoTexto" placeholder="Escribe algo...">
+    <button id="btnEnviar" disabled>Enviar</button>
+    
+    <p id="mensaje"></p>
+    
+    <script >
+        // Seleccionar elementos
+        const campoTexto = document.getElementById('campoTexto');
+        const btnEnviar = document.getElementById('btnEnviar');
+        const mensaje = document.getElementById('mensaje');
+
+        // Evento que se dispara cada vez que se escribe en el campo
+        campoTexto.addEventListener('input', () => {
+            // Obtener y limpiar el valor del campo
+            const texto = campoTexto.value.trim();
+            
+            // Habilitar o deshabilitar el botón según el contenido
+            if (texto !== '') {
+                btnEnviar.disabled = false;
+                btnEnviar.textContent = 'Enviar ✓';
+                mensaje.textContent = 'Campo válido, puedes enviar';
+                mensaje.style.color = 'green';
+            } else {
+                btnEnviar.disabled = true;
+                btnEnviar.textContent = 'Enviar';
+                mensaje.textContent = 'El campo está vacío';
+                mensaje.style.color = 'red';
+            }
+        });
+
+        // Evento adicional para el botón
+        btnEnviar.addEventListener('click', () => {
+            alert(`Mensaje enviado: "${campoTexto.value}"`);
+            campoTexto.value = ''; // Limpiar campo después de enviar
+            btnEnviar.disabled = true; // Deshabilitar botón nuevamente
+            btnEnviar.textContent = 'Enviar';
+            mensaje.textContent = 'Mensaje enviado correctamente';
+        });
+
+    </script>
+</body>
+</html>

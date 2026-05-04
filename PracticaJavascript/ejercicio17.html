@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combinar Métodos de Selección</title>
+    <style>
+        .item {
+            padding: 10px;
+            margin: 5px;
+            background-color: #f0f0f0;
+        }
+        
+        .modificado {
+            background-color: #3498db;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h2>Ejercicio 17: Buscar dentro de contenedor</h2>
+    
+    <div id="contenedorPrincipal">
+        <p class="item">Texto 1</p>
+        <p class="item">Texto 2</p>
+        <p class="item">Texto 3</p>
+    </div>
+
+    <div id="otroContenedor">
+        <p class="item">Texto A</p>
+        <p class="item">Texto B</p>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <button id="btnModificar">Modificar Items del Contenedor Principal</button>
+        <button id="btnRestaurar">Restaurar</button>
+    </div>
+    
+    <script>
+        // EJERCICIO 17: Combinar métodos de selección
+        
+        // PASO 1: Seleccionar el botón
+        var btnModificar = document.getElementById('btnModificar');
+        var btnRestaurar = document.getElementById('btnRestaurar');
+        
+        // Función principal
+        function modificarItems() {
+            console.log("=== PASO 1: Seleccionar contenedor por ID ===");
+            
+            // PRIMERO: Seleccionar el contenedor principal por su ID
+            var contenedor = document.getElementById('contenedorPrincipal');
+            console.log("Contenedor seleccionado:", contenedor.id);
+            
+            console.log("=== PASO 2: Buscar elementos DENTRO del contenedor ===");
+            
+            // LUEGO: Buscar todos los elementos con clase "item" DENTRO del contenedor
+            var items = contenedor.querySelectorAll('.item');
+            console.log("Elementos encontrados dentro del contenedor:", items.length);
+            
+            console.log("=== PASO 3: Modificar cada elemento ===");
+            
+            // Recorrer y modificar cada elemento
+            for (var i = 0; i < items.length; i++) {
+                console.log("Modificando:", items[i].textContent);
+                
+                // Cambiar el texto
+                items[i].textContent = "✅ " + items[i].textContent + " - MODIFICADO";
+                
+                // Añadir clase CSS
+                items[i].classList.add('modificado');
+            }
+            
+            console.log("=== RESULTADO ===");
+            console.log("Solo se modificaron los elementos del contenedor principal");
+            console.log("Los elementos del otro contenedor NO se modificaron");
+        }
+        
+        // Función para restaurar
+        function restaurarItems() {
+            // Seleccionar TODOS los items de AMBOS contenedores
+            var todosItems = document.querySelectorAll('.item');
+            
+            for (var i = 0; i < todosItems.length; i++) {
+                // Quitar "✅" y " - MODIFICADO"
+                var texto = todosItems[i].textContent
+                    .replace('✅ ', '')
+                    .replace(' - MODIFICADO', '');
+                todosItems[i].textContent = texto;
+                
+                // Quitar clase
+                todosItems[i].classList.remove('modificado');
+            }
+            
+            console.log("Todos los items restaurados");
+        }
+        
+        // Conectar botones
+        btnModificar.addEventListener('click', modificarItems);
+        btnRestaurar.addEventListener('click', restaurarItems);
+        
+        // Estilos básicos para botones
+        btnModificar.style.padding = "10px 15px";
+        btnModificar.style.backgroundColor = "#3498db";
+        btnModificar.style.color = "white";
+        btnModificar.style.border = "none";
+        btnModificar.style.borderRadius = "4px";
+        btnModificar.style.cursor = "pointer";
+        
+        btnRestaurar.style.padding = "10px 15px";
+        btnRestaurar.style.backgroundColor = "#e74c3c";
+        btnRestaurar.style.color = "white";
+        btnRestaurar.style.border = "none";
+        btnRestaurar.style.borderRadius = "4px";
+        btnRestaurar.style.cursor = "pointer";
+        btnRestaurar.style.marginLeft = "10px";
+        
+        // Mensaje inicial
+        console.log("=== EJERCICIO 17: COMBINAR MÉTODOS ===");
+        console.log("Instrucciones:");
+        console.log("1. Haz clic en 'Modificar Items del Contenedor Principal'");
+        console.log("2. Observa cómo solo cambian los elementos del PRIMER contenedor");
+        console.log("3. Los elementos del SEGUNDO contenedor permanecen igual");
+        console.log("");
+        console.log("Técnica usada:");
+        console.log("1. Primero: getElementById('contenedorPrincipal')");
+        console.log("2. Luego: contenedor.querySelectorAll('.item')");
+    </script>
+</body>
+</html>

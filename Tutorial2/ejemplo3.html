@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <<title>Atributos data-* - Ejemplo práctico</title>
+  <style>
+    button { margin: 5px; padding: 8px 12px; cursor: pointer; }
+    #info { margin-top: 20px; padding: 10px; background: #eef; border-left: 4px solid #2196F3; }
+  </style>
+</head>
+<body>
+<h2>🏷️ Productos con datos adjuntos</h2>
+<div id="productos">
+  <button data-id="1" data-nombre="Laptop" data-precio="750">Laptop</button>
+  <button data-id="2" data-nombre="Mouse" data-precio="25">Mouse</button>
+  <button data-id="3" data-nombre="Teclado" data-precio="45">Teclado</button>
+</div>
+<div id="info">
+  👆 Haz clic en un producto para ver sus datos.
+</div>
+
+<script>
+  const contenedor = document.getElementById('productos');
+  const infoDiv = document.getElementById('info');
+
+  contenedor.addEventListener('click', (e) => {
+    if (e.target.tagName === 'BUTTON') {
+      // Accedemos a los datos con dataset
+      const id = e.target.dataset.id;
+      const nombre = e.target.dataset.nombre;
+      const precio = e.target.dataset.precio;
+      infoDiv.innerHTML = `
+        <strong>Producto seleccionado:</strong><br>
+        🆔 ID: ${id}<br>
+        📦 Nombre: ${nombre}<br>
+        💰 Precio: $${precio}
+      `;
+    }
+  });
+</script>
+
+    
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambiar Imágenes</title>
+    <style>
+        img {
+            border: 3px solid #ddd;
+            border-radius: 10px;
+            margin: 20px 0;
+            transition: all 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <h2>Ejercicio 13: Cambiar Atributos de Imagen</h2>
+    
+    <div>
+        <img id="miImagen" src="" alt="Selecciona una imagen" width="300">
+    </div>
+    
+    <div style="margin: 20px 0;">
+        <button id="btnGato">🐱 Gato</button>
+        <button id="btnPerro">🐶 Perro</button>
+        <button id="btnPajaro">🐦 Pájaro</button>
+        <button id="btnAuto">🚗 Auto</button>
+        <button id="btnRestaurar">Limpiar</button>
+    </div>
+    
+    <p id="textoAlt">Texto alternativo: </p>
+    
+    <script>
+        // EJERCICIO 13: Cambiar atributos de imagen
+        
+        // PASO 1: Seleccionar la imagen por ID
+        var imagen = document.getElementById('miImagen');
+        var textoAlt = document.getElementById('textoAlt');
+        
+        // PASO 2: URL de imágenes (de dominio público)
+        var imagenes = {
+            gato: {
+                src: 'https://images.unsplash.com/photo-1514888286974-6d03bdeacba8?w=300&h=300&fit=crop',
+                alt: 'Un gato naranja mirando a la cámara'
+            },
+            perro: {
+                src: 'https://images.unsplash.com/photo-1552053831-71594a27632d?w=300&h=300&fit=crop',
+                alt: 'Un perro golden retriever sonriendo'
+            },
+            pajaro: {
+                src: 'https://images.unsplash.com/photo-1550853024-10a2e0a59e57?w=300&h=300&fit=crop',
+                alt: 'Un pájaro colorido posado en una rama'
+            },
+            auto: {
+                src: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=300&h=300&fit=crop',
+                alt: 'Un auto deportivo rojo en la carretera'
+            }
+        };
+        
+        // PASO 3: Función para cambiar imagen
+        function cambiarImagen(tipo) {
+            // CAMBIAR atributo src
+            imagen.src = imagenes[tipo].src;
+            
+            // CAMBIAR atributo alt
+            imagen.alt = imagenes[tipo].alt;
+            
+            // Actualizar texto en pantalla
+            textoAlt.textContent = 'Texto alternativo: ' + imagenes[tipo].alt;
+            
+            console.log('Imagen cambiada a: ' + tipo);
+            console.log('src: ' + imagenes[tipo].src);
+            console.log('alt: ' + imagenes[tipo].alt);
+        }
+        
+        // PASO 4: Función para restaurar
+        function restaurarImagen() {
+            imagen.src = '';
+            imagen.alt = 'Selecciona una imagen';
+            textoAlt.textContent = 'Texto alternativo: ';
+            console.log('Imagen restaurada');
+        }
+        
+        // PASO 5: Seleccionar botones
+        var btnGato = document.getElementById('btnGato');
+        var btnPerro = document.getElementById('btnPerro');
+        var btnPajaro = document.getElementById('btnPajaro');
+        var btnAuto = document.getElementById('btnAuto');
+        var btnRestaurar = document.getElementById('btnRestaurar');
+        
+        // PASO 6: Conectar botones
+        btnGato.addEventListener('click', function() { cambiarImagen('gato'); });
+        btnPerro.addEventListener('click', function() { cambiarImagen('perro'); });
+        btnPajaro.addEventListener('click', function() { cambiarImagen('pajaro'); });
+        btnAuto.addEventListener('click', function() { cambiarImagen('auto'); });
+        btnRestaurar.addEventListener('click', restaurarImagen);
+        
+        // PASO 7: Configurar botones
+        var botones = document.querySelectorAll('button');
+        for (var i = 0; i < botones.length; i++) {
+            botones[i].style.padding = '10px 15px';
+            botones[i].style.margin = '5px';
+            botones[i].style.cursor = 'pointer';
+            botones[i].style.borderRadius = '5px';
+            botones[i].style.border = 'none';
+        }
+        
+        // PASO 8: Mensaje inicial
+        console.log('=== EJERCICIO 13: Cambiar Atributos ===');
+        console.log('Imagen seleccionada por ID: ' + imagen.id);
+        console.log('Atributos que podemos cambiar: src y alt');
+    </script>
+</body>
+</html>

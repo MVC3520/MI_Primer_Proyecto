@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="inputTexto" placeholder="Escribe algo">
+<div class="pepe">
+  <div class="contenedor">
+<ul id="lista">
+  <li>Estudiar <button class="btn">X</button></li>
+  <li>Comprar <button class="btn">X</button></li>
+</ul>
+  </div>
+</div>
+
+<button id="agregar">➕ Agregar tarea</button>
+
+<script>
+  const lista = document.getElementById("lista");
+  const inputTexto = document.getElementById("inputTexto");
+
+
+  // 👉 El vigilante: el <ul> escucha todos los clics
+  lista.addEventListener("click", (e) => {
+    // e.target es el elemento exacto donde se hizo clic (el botón, o el texto, o el li)
+    if (e.target.classList.contains("btn")) {
+      // Subimos desde el botón hasta el <li> que lo contiene
+      const li = e.target.closest("li");
+      li.remove();
+      console.log("Eliminado");
+    }
+  });
+
+
+  // Agregar nuevas tareas (con botones que también funcionan)
+  const agregarBtn = document.getElementById("agregar");
+  agregarBtn.addEventListener("click", () => {
+    const texto = inputTexto.value.trim();
+    const nuevoLi = document.createElement("li");
+    nuevoLi.innerHTML = `${texto} <button class="btn">X</button>`;
+    lista.appendChild(nuevoLi);
+  });
+</script>
+
+</body>
+</html>

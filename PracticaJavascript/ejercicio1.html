@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identificar Elementos con dataset.id</title>
+</head>
+<body>
+    <button data-id="1">Botón 1</button>
+    <button data-id="2">Botón 2</button>
+    <button data-id="3">Botón 3</button>
+    <button data-id="4">Botón 4</button>
+    
+    <script>
+        // Paso 1: Seleccionar todos los botones
+        const botones = document.querySelectorAll('button');
+        
+        // Paso 2: Función común para manejar el clic
+        function manejarClic(evento) {
+            // Obtener el data-id del botón clicado
+            const id = evento.target.dataset.id;
+            
+            // Mostrar alerta con el ID
+            alert("Has hecho clic en el botón con ID: " + id);
+            
+            // También mostrar en consola
+            console.log("Botón ID " + id + " clickeado");
+        }
+        
+        // Paso 3: Agregar evento a cada botón
+        for (let i = 0; i < botones.length; i++) {
+            botones[i].addEventListener('click', manejarClic);
+        }
+    </script>
+</body>
+</html>

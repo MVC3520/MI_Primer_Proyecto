@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse Over y Mouse Out</title>
+</head>
+<body>
+    <h1 id="tituloPrincipal">Pasa el mouse aquí</h1>
+    
+    <script>
+        // Seleccionar el título
+        var titulo = document.getElementById('tituloPrincipal');
+        
+        // Aplicar estilos iniciales
+        titulo.style.padding = '20px';
+        titulo.style.textAlign = 'center';
+        titulo.style.backgroundColor = 'lightblue';
+        titulo.style.color = 'black';
+        titulo.style.transition = '0.3s';
+        
+        // Cuando el mouse ENTRA
+        titulo.addEventListener('mouseover', function() {
+            this.style.color = 'red';
+            this.style.backgroundColor = 'yellow';
+            this.textContent = '¡Mouse DENTRO!';
+        });
+        
+        // Cuando el mouse SALE
+        titulo.addEventListener('mouseout', function() {
+            this.style.color = 'black';
+            this.style.backgroundColor = 'lightblue';
+            this.textContent = 'Pasa el mouse aquí';
+        });
+    </script>
+</body>
+</html>

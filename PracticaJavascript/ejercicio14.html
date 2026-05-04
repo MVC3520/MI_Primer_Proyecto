@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selectores Descendientes Básico</title>
+    <style>
+        .mi-clase {
+            background-color: lightblue;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        .destacado {
+            background-color: yellow;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h3>Encontrar elementos dentro de otros</h3>
+    
+    <div class="mi-clase">
+        <p id="texto1">Texto dentro del div con clase "mi-clase"</p>
+    </div>
+    
+    <div>
+        <p id="texto2">Texto dentro de un div normal</p>
+    </div>
+    
+    <button onclick="resaltarTexto()">Resaltar Texto Específico</button>
+    <button onclick="quitarResaltado()">Quitar Resaltado</button>
+    
+    <script>
+        // Función para resaltar texto DENTRO de .mi-clase
+        function resaltarTexto() {
+            // Seleccionar el párrafo que está DENTRO de un div con clase "mi-clase"
+            var textoEspecifico = document.querySelector('.mi-clase p');
+            
+            // Añadir clase CSS
+            textoEspecifico.classList.add('destacado');
+            
+            console.log('Texto seleccionado: ' + textoEspecifico.textContent);
+            console.log('Selector usado: .mi-clase p');
+        }
+        
+        // Función para quitar resaltado
+        function quitarResaltado() {
+            var texto = document.querySelector('.mi-clase p');
+            texto.classList.remove('destacado');
+        }
+        
+        console.log('Selector ".mi-clase p" significa:');
+        console.log('Busca un párrafo (p) dentro de un elemento con clase "mi-clase"');
+    </script>
+</body>
+</html>

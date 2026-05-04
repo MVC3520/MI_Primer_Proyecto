@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de Imágenes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        #imagenGrande {
+            text-align: center;
+            margin-bottom: 30px;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #imagenPrincipal {
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 3px solid white;
+            transition: transform 0.3s;
+        }
+        
+        #imagenPrincipal:hover {
+            transform: scale(1.02);
+        }
+        
+        #tituloImagen {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #555;
+            min-height: 25px;
+        }
+        
+        #galeriaMiniaturas {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        
+        .miniatura {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 3px solid #ddd;
+            transition: all 0.3s;
+        }
+        
+        .miniatura:hover {
+            border-color: #3498db;
+            transform: translateY(-5px);
+        }
+        
+        .miniatura.activa {
+            border-color: #2ecc71;
+            box-shadow: 0 0 10px rgba(46, 204, 113, 0.5);
+        }
+        
+        .instrucciones {
+            text-align: center;
+            color: #7f8c8d;
+            margin: 20px 0;
+            font-style: italic;
+        }
+        
+        .contador {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>🖼️ Galería de Imágenes</h1>
+    
+    <div class="instrucciones">
+        Haz clic en cualquier miniatura para verla en grande
+    </div>
+    
+    <div id="imagenGrande">
+        <img id="imagenPrincipal" src="" alt="Imagen seleccionada">
+    </div>
+    
+    <div id="tituloImagen">Selecciona una imagen</div>
+    
+    <div id="galeriaMiniaturas">
+        <!-- Miniaturas con atributos data-large -->
+        <img class="miniatura" src="https://images.unsplash.com/photo-1514888286974-6d03bdeacba8?w=200&h=200&fit=crop" 
+             data-large="https://images.unsplash.com/photo-1514888286974-6d03bdeacba8?w=600&h=400&fit=crop"
+             alt="Gato" data-titulo="Gato naranja">
+        
+        <img class="miniatura" src="https://images.unsplash.com/photo-1552053831-71594a27632d?w=200&h=200&fit=crop" 
+             data-large="https://images.unsplash.com/photo-1552053831-71594a27632d?w=600&h=400&fit=crop"
+             alt="Perro" data-titulo="Perro golden retriever">
+        
+        <img class="miniatura" src="https://images.unsplash.com/photo-1550853024-10a2e0a59e57?w=200&h=200&fit=crop" 
+             data-large="https://images.unsplash.com/photo-1550853024-10a2e0a59e57?w=600&h=400&fit=crop"
+             alt="Pájaro" data-titulo="Pájaro colorido">
+        
+        <img class="miniatura" src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=200&h=200&fit=crop" 
+             data-large="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=600&h=400&fit=crop"
+             alt="Auto" data-titulo="Auto deportivo">
+        
+        <img class="miniatura" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200&h=200&fit=crop" 
+             data-large="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop"
+             alt="Montañas" data-titulo="Montañas nevadas">
+        
+        <img class="miniatura" src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=200&h=200&fit=crop" 
+             data-large="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600&h=400&fit=crop"
+             alt="Playas" data-titulo="Playa tropical">
+    </div>
+    
+    <div class="contador" id="contador">
+        Imágenes disponibles: 6
+    </div>
+
+    <script>
+        // EJERCICIO 21: Galería de Imágenes
+        
+        // 1. Seleccionar elementos
+        var imagenPrincipal = document.getElementById('imagenPrincipal');
+        var tituloImagen = document.getElementById('tituloImagen');
+        var galeriaMiniaturas = document.getElementById('galeriaMiniaturas');
+        var contador = document.getElementById('contador');
+        
+        // 2. Variable para llevar cuenta de clics
+        var clicsTotales = 0;
+        
+        // 3. Función para mostrar imagen grande
+        function mostrarImagenGrande(miniatura) {
+            console.log("Mostrando imagen grande...");
+            
+            // Obtener la URL grande desde data-large
+            var urlGrande = miniatura.dataset.large;
+            var titulo = miniatura.dataset.titulo || miniatura.alt;
+            
+            console.log("URL grande:", urlGrande);
+            console.log("Título:", titulo);
+            
+            // Cambiar la imagen principal
+            imagenPrincipal.src = urlGrande;
+            imagenPrincipal.alt = miniatura.alt;
+            
+            // Actualizar título
+            tituloImagen.textContent = titulo;
+            
+            // Quitar clase 'activa' de todas las miniaturas
+            var todasMiniaturas = document.querySelectorAll('.miniatura');
+            for (var i = 0; i < todasMiniaturas.length; i++) {
+                todasMiniaturas[i].classList.remove('activa');
+            }
+            
+            // Agregar clase 'activa' a la miniatura clickeada
+            miniatura.classList.add('activa');
+            
+            // Contar clics
+            clicsTotales++;
+            contador.textContent = "Imágenes vistas: " + clicsTotales + " | Disponibles: 6";
+        }
+        
+        // 4. Event delegation - UN solo listener para TODAS las miniaturas
+        galeriaMiniaturas.addEventListener('click', function(evento) {
+            // Verificar si el clic fue en una miniatura
+            if (evento.target.classList.contains('miniatura')) {
+                console.log("Miniatura clickeada:", evento.target.alt);
+                mostrarImagenGrande(evento.target);
+            }
+        });
+        
+        // 5. Mostrar la primera imagen al cargar la página
+        window.addEventListener('load', function() {
+            var primeraMiniatura = document.querySelector('.miniatura');
+            if (primeraMiniatura) {
+                mostrarImagenGrande(primeraMiniatura);
+            }
+            
+            console.log("=== GALERÍA DE IMÁGENES ===");
+            console.log("Haz clic en cualquier miniatura para verla en grande");
+            console.log("Event delegation activado - Un solo event listener");
+            console.log("Atributos usados: data-large para URL grande");
+        });
+    </script>
+</body>
+</html>

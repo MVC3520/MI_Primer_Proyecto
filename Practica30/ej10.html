@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+  .contenido { display: none; }
+  .activo .contenido { display: block; }
+</style>
+</head>
+<body>
+    <div class="acordeon">
+  <h3 class="titulo">Sección 1</h3>
+  <div class="contenido">Contenido de la sección 1</div>
+  
+  <h3 class="titulo">Sección 2</h3>
+  <div class="contenido">Contenido de la sección 2</div>
+</div>
+
+
+<script>
+const titulos = document.querySelectorAll('.titulo');      
+titulos.forEach(function(titulo) {     
+    titulo.addEventListener('click', function() {       
+        // Cerrar todos los acordeones       
+        titulos.forEach(function(otroTitulo) {         
+            if (otroTitulo !== titulo) {           
+                otroTitulo.parentElement.classList.remove('activo');         
+            }       
+        });              
+            // Abrir/cerrar el acordeón clickeado       
+            this.parentElement.classList.toggle('activo');     
+        });   
+    }); 
+</script>
+</body>
+</html>

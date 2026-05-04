@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>setTimeout - Mensaje que desaparece</title>
+</head>
+<body>
+<h2>⏳ Mensaje temporal</h2>
+<button id="mostrarBtn">Mostrar mensaje</button>
+<div id="mensaje" style="display: none; background: #d4edda; padding: 10px; margin-top: 10px;">
+    ✅ ¡Guardado correctamente!
+</div>
+
+<script>
+  const btn = document.getElementById('mostrarBtn');
+  const mensaje = document.getElementById('mensaje');
+  let timeoutId = null;
+
+  btn.addEventListener('click', () => {
+    // Mostrar el mensaje
+    mensaje.style.display = 'block';
+    
+    // Si ya había un timeout pendiente, lo cancelamos (para evitar acumulación)
+    if (timeoutId) clearTimeout(timeoutId);
+    
+    // Programar que desaparezca después de 2 segundos
+    timeoutId = setTimeout(() => {
+      mensaje.style.display = 'none';
+      timeoutId = null;
+    }, 2000);
+  });
+</script>
+
+</body>
+</html>

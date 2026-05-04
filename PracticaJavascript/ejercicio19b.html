@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador de Clics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        
+        h1 {
+            color: #333;
+        }
+        
+        #contador {
+            font-size: 60px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 30px 0;
+        }
+        
+        #botonClic {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        
+        #botonClic:hover {
+            background-color: #2980b9;
+        }
+        
+        #botonReset {
+            padding: 10px 20px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        
+        #botonReset:hover {
+            background-color: #c0392b;
+        }
+        
+        .mensaje {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contador de Clics</h1>
+    
+    <div id="contador">0</div>
+    
+    <button id="botonClic">Haz clic aquí</button>
+    <button id="botonReset">Reiniciar</button>
+    
+    <div class="mensaje" id="mensaje">Haz clic en el botón para empezar a contar</div>
+
+    <script>
+        // EJERCICIO 19: Contador de Clics
+        
+        // PASO 1: Crear variables
+        var clics = 0; // Variable para almacenar el contador
+        var elementoContador = document.getElementById('contador');
+        var boton = document.getElementById('botonClic');
+        var botonReset = document.getElementById('botonReset');
+        var mensaje = document.getElementById('mensaje');
+        
+        // PASO 2: Función para contar clics
+        function contarClic() {
+            // Incrementar el contador
+            clics = clics + 1;
+            
+            // Actualizar el número en pantalla
+            elementoContador.textContent = clics;
+            
+            // Actualizar mensaje
+            if (clics === 1) {
+                mensaje.textContent = '¡Primer clic!';
+            } else {
+                mensaje.textContent = 'Clic número: ' + clics;
+            }
+            
+            // Mostrar en consola
+            console.log('Clics: ' + clics);
+        }
+        
+        // PASO 3: Función para reiniciar
+        function reiniciarContador() {
+            clics = 0;
+            elementoContador.textContent = clics;
+            mensaje.textContent = 'Contador reiniciado';
+            console.log('Contador reiniciado a 0');
+        }
+        
+        // PASO 4: Conectar botones con funciones
+        boton.addEventListener('click', contarClic);
+        botonReset.addEventListener('click', reiniciarContador);
+        
+        // PASO 5: Mensaje inicial
+        console.log('=== CONTADOR DE CLICS ===');
+        console.log('Haz clic en el botón para aumentar el contador');
+        console.log('Usa el botón Reiniciar para volver a 0');
+    </script>
+</body>
+</html>

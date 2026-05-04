@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h2>Contador de Clics</h2>
+    
+    <p id="contador">Clics: 0</p>
+    <button id="boton">Haz clic</button>
+    
+    <script>
+        // Variables
+        var cuenta = 0;
+        var contador = document.getElementById('contador');
+        var boton = document.getElementById('boton');
+        
+        // Función para contar
+        function contar() {
+            cuenta = cuenta + 1;
+            contador.textContent = 'Clics: ' + cuenta;
+        }
+        
+        // Conectar botón
+        boton.addEventListener('click', contar);
+    </script>
+</body>
+</html>

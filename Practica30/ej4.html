@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="nuevoItem" placeholder="Nuevo elemento">
+    <button id="agregar">Agregar</button>
+    <ul id="lista"></ul>
+    <script>   
+        document.getElementById('agregar').addEventListener('click', function() {
+            const nuevoItemInput = document.getElementById('nuevoItem');
+            const texto = nuevoItemInput.value.trim();
+            if(texto){
+                const li= document.createElement('li');
+                li.textContent = texto;
+                document.getElementById('lista').appendChild(li);
+                nuevoItemInput.value = '';
+            }
+        });
+        
+    </script> 
+</body>
+</html>
+

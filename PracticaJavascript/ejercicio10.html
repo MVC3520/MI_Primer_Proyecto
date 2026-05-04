@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambiar Color de Párrafo</title>
+</head>
+<body>
+    <h2>Ejercicio 10: Cambiar Color de Fondo</h2>
+    
+    <p id="miParrafo" style="padding: 20px; border-radius: 10px; font-size: 18px;">
+        Este es un párrafo de ejemplo. 
+        Haz clic en los botones para cambiar mi color de fondo.
+    </p>
+    
+    <div style="margin-top: 20px;">
+        <button id="btnRojo">Rojo</button>
+        <button id="btnAzul">Azul</button>
+        <button id="btnVerde">Verde</button>
+        <button id="btnAmarillo">Amarillo</button>
+        <button id="btnRestaurar">Color Original</button>
+    </div>
+    
+    <script>
+        // EJERCICIO 10: Seleccionar por ID y Cambiar Estilo
+        
+        // PASO 1: Seleccionar el párrafo por su ID
+        var parrafo = document.getElementById('miParrafo');
+        
+        // PASO 2: Guardar el color original
+        var colorOriginal = 'white';
+        var colorTextoOriginal = 'black';
+        
+        // PASO 3: Seleccionar todos los botones
+        var btnRojo = document.getElementById('btnRojo');
+        var btnAzul = document.getElementById('btnAzul');
+        var btnVerde = document.getElementById('btnVerde');
+        var btnAmarillo = document.getElementById('btnAmarillo');
+        var btnRestaurar = document.getElementById('btnRestaurar');
+        
+        // PASO 4: Crear función para cambiar a ROJO
+        function cambiarARojo() {
+            parrafo.style.backgroundColor = 'red';
+            parrafo.style.color = 'white';
+            console.log('Color cambiado a: ROJO');
+        }
+        
+        // PASO 5: Crear función para cambiar a AZUL
+        function cambiarAAzul() {
+            parrafo.style.backgroundColor = 'blue';
+            parrafo.style.color = 'white';
+            console.log('Color cambiado a: AZUL');
+        }
+        
+        // PASO 6: Crear función para cambiar a VERDE
+        function cambiarAVerde() {
+            parrafo.style.backgroundColor = 'green';
+            parrafo.style.color = 'white';
+            console.log('Color cambiado a: VERDE');
+        }
+        
+        // PASO 7: Crear función para cambiar a AMARILLO
+        function cambiarAAmarillo() {
+            parrafo.style.backgroundColor = 'yellow';
+            parrafo.style.color = 'black';
+            console.log('Color cambiado a: AMARILLO');
+        }
+        
+        // PASO 8: Crear función para RESTAURAR color original
+        function restaurarColor() {
+            parrafo.style.backgroundColor = colorOriginal;
+            parrafo.style.color = colorTextoOriginal;
+            console.log('Color restaurado a ORIGINAL');
+        }
+        
+        // PASO 9: Conectar funciones con botones
+        btnRojo.addEventListener('click', cambiarARojo);
+        btnAzul.addEventListener('click', cambiarAAzul);
+        btnVerde.addEventListener('click', cambiarAVerde);
+        btnAmarillo.addEventListener('click', cambiarAAmarillo);
+        btnRestaurar.addEventListener('click', restaurarColor);
+        
+        // PASO 10: Mensaje inicial
+        console.log('Ejercicio 10 listo. Haz clic en los botones para cambiar el color.');
+        console.log('Usando: getElementById() y elemento.style.backgroundColor');
+    </script>
+</body>
+</html>

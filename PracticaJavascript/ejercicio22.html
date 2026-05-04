@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acordeón Interactivo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #f8f9fa;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 40px;
+        }
+        
+        .acordeon {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .seccion {
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .seccion:last-child {
+            border-bottom: none;
+        }
+        
+        .titulo {
+            background-color: #fff;
+            color: #2c3e50;
+            padding: 18px 20px;
+            margin: 0;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+            user-select: none;
+        }
+        
+        .titulo:hover {
+            background-color: #f1f8ff;
+        }
+        
+        .titulo.activa {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .icono {
+            transition: transform 0.3s;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .titulo.activa .icono {
+            transform: rotate(45deg);
+            color: white;
+        }
+        
+        .contenido {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            background-color: #f9f9f9;
+            transition: all 0.4s ease;
+        }
+        
+        .contenido.mostrar {
+            padding: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .contenido p {
+            margin: 0 0 15px 0;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .contenido p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .instrucciones {
+            text-align: center;
+            color: #7f8c8d;
+            margin: 20px 0;
+            font-style: italic;
+        }
+        
+        .estadisticas {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>📚 Acordeón Interactivo</h1>
+    
+    <div class="instrucciones">
+        Haz clic en cualquier título para expandir/contraer su contenido<br>
+        Solo una sección puede estar abierta a la vez
+    </div>
+    
+    <div class="acordeon" id="miAcordeon">
+        <!-- Sección 1 -->
+        <div class="seccion">
+            <h3 class="titulo">
+                ¿Qué es JavaScript?
+                <span class="icono">+</span>
+            </h3>
+            <div class="contenido">
+                <p>JavaScript es un lenguaje de programación interpretado, dialecto del estándar ECMAScript. Se define como orientado a objetos, basado en prototipos, imperativo, débilmente tipado y dinámico.</p>
+                <p>Se utiliza principalmente en el desarrollo web para añadir interactividad a las páginas, validar formularios, crear animaciones, y mucho más.</p>
+            </div>
+        </div>
+        
+        <!-- Sección 2 -->
+        <div class="seccion">
+            <h3 class="titulo">
+                ¿Qué es el DOM?
+                <span class="icono">+</span>
+            </h3>
+            <div class="contenido">
+                <p>DOM (Document Object Model) es una interfaz de programación para documentos HTML y XML. Representa la estructura del documento como un árbol de objetos, permitiendo a los programas acceder y manipular el contenido, estructura y estilo del documento.</p>
+                <p>Con JavaScript podemos modificar el DOM para crear páginas web dinámicas e interactivas.</p>
+            </div>
+        </div>
+        
+        <!-- Sección 3 -->
+        <div class="seccion">
+            <h3 class="titulo">
+                ¿Qué es Event Delegation?
+                <span class="icono">+</span>
+            </h3>
+            <div class="contenido">
+                <p>Event delegation es una técnica en JavaScript donde en lugar de agregar event listeners a elementos individuales, agregamos un solo event listener a un elemento padre. Este listener analiza los eventos que "burbujean" desde los elementos hijos.</p>
+                <p>Ventajas: mejor rendimiento, funciona con elementos dinámicos, menos consumo de memoria.</p>
+            </div>
+        </div>
+        
+        <!-- Sección 4 -->
+        <div class="seccion">
+            <h3 class="titulo">
+                ¿Qué son las Promesas en JavaScript?
+                <span class="icono">+</span>
+            </h3>
+            <div class="contenido">
+                <p>Las promesas son objetos que representan la terminación o el fracaso eventual de una operación asíncrona. Permiten manejar operaciones asíncronas de manera más limpia que los callbacks anidados.</p>
+                <p>Una promesa puede estar en uno de estos estados: pendiente, cumplida o rechazada.</p>
+            </div>
+        </div>
+        
+        <!-- Sección 5 -->
+        <div class="seccion">
+            <h3 class="titulo">
+                ¿Qué es JSON?
+                <span class="icono">+</span>
+            </h3>
+            <div class="contenido">
+                <p>JSON (JavaScript Object Notation) es un formato de intercambio de datos ligero y fácil de leer y escribir para humanos, y fácil de parsear y generar para máquinas.</p>
+                <p>Se basa en un subconjunto del lenguaje JavaScript, pero es independiente del lenguaje. Muchos lenguajes de programación tienen capacidad para leer y generar JSON.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="estadisticas" id="estadisticas">
+        Secciones: 5 | Abiertas: 0
+    </div>
+
+    <script>
+        // EJERCICIO 22: Acordeón Interactivo
+        
+        // 1. Seleccionar elementos
+        var acordeon = document.getElementById('miAcordeon');
+        var estadisticas = document.getElementById('estadisticas');
+        var seccionAbierta = null; // Para rastrear qué sección está abierta
+        
+        // 2. Función para abrir una sección
+        function abrirSeccion(tituloClickeado) {
+            console.log("Abriendo sección...");
+            
+            // Cerrar la sección actualmente abierta (si hay una)
+            if (seccionAbierta && seccionAbierta !== tituloClickeado) {
+                cerrarSeccion(seccionAbierta);
+            }
+            
+            // Encontrar el contenido de esta sección
+            var seccion = tituloClickeado.parentElement;
+            var contenido = seccion.querySelector('.contenido');
+            
+            // Alternar estado
+            if (tituloClickeado.classList.contains('activa')) {
+                // Si ya está activa, cerrarla
+                cerrarSeccion(tituloClickeado);
+                seccionAbierta = null;
+            } else {
+                // Si no está activa, abrirla
+                tituloClickeado.classList.add('activa');
+                contenido.classList.add('mostrar');
+                seccionAbierta = tituloClickeado;
+            }
+            
+            // Actualizar estadísticas
+            actualizarEstadisticas();
+        }
+        
+        // 3. Función para cerrar una sección
+        function cerrarSeccion(titulo) {
+            var seccion = titulo.parentElement;
+            var contenido = seccion.querySelector('.contenido');
+            
+            titulo.classList.remove('activa');
+            contenido.classList.remove('mostrar');
+            
+            console.log("Sección cerrada:", titulo.textContent);
+        }
+        
+        // 4. Función para actualizar estadísticas
+        function actualizarEstadisticas() {
+            var totalSecciones = document.querySelectorAll('.seccion').length;
+            var abiertas = document.querySelectorAll('.titulo.activa').length;
+            
+            estadisticas.textContent = `Secciones: ${totalSecciones} | Abiertas: ${abiertas}`;
+            
+            console.log(`Estadísticas: ${totalSecciones} secciones, ${abiertas} abiertas`);
+        }
+        
+        // 5. Event delegation para todos los títulos
+        acordeon.addEventListener('click', function(evento) {
+            // Verificar si el clic fue en un título o en el icono
+            var elementoClickeado = evento.target;
+            
+            // Si hizo clic en el icono (+), subir al título
+            if (elementoClickeado.classList.contains('icono')) {
+                elementoClickeado = elementoClickeado.parentElement;
+            }
+            
+            // Si hizo clic en un título
+            if (elementoClickeado.classList.contains('titulo')) {
+                console.log("Título clickeado:", elementoClickeado.textContent);
+                abrirSeccion(elementoClickeado);
+            }
+        });
+        
+        // 6. Inicializar acordeón
+        window.addEventListener('load', function() {
+            // Abrir la primera sección por defecto
+            var primerTitulo = document.querySelector('.titulo');
+            if (primerTitulo) {
+                abrirSeccion(primerTitulo);
+            }
+            
+            actualizarEstadisticas();
+            
+            console.log("=== ACORDEÓN INTERACTIVO ===");
+            console.log("Haz clic en cualquier título para expandir/contraer");
+            console.log("Solo una sección puede estar abierta a la vez");
+            console.log("Event delegation implementado");
+        });
+    </script>
+</body>
+</html>

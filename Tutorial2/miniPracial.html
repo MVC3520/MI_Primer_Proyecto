@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mini Parcial Práctico - Sin respuestas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .ejercicio {
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 25px;
+        }
+        .codigo {
+            background: #2d2f36;
+            color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            overflow-x: auto;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        textarea {
+            width: 100%;
+            padding: 8px;
+            font-family: monospace;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+        hr {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Mini Parcial Práctico</h1>
+    <p><strong>Instrucción:</strong> Para cada ejercicio, analizá el código, detectá el error, explicá por qué ocurre y escribí la solución correcta.</p>
+
+    <!-- Ejercicio 1 -->
+    <div class="ejercicio">
+        <h2>1. DOM</h2>
+        <div class="codigo">
+            <pre>console.log(item.parent);</pre>
+        </div>
+        <label>❌ ¿Qué error hay?</label>
+        <textarea rows="2" placeholder="Escribí acá..."></textarea>
+        <label>📖 ¿Por qué ocurre?</label>
+        <textarea rows="3" placeholder="Escribí acá..."></textarea>
+        <label>✅ Solución correcta</label>
+        <textarea rows="2" placeholder="Escribí acá..."></textarea>
+    </div>
+
+    <!-- Ejercicio 2 -->
+    <div class="ejercicio">
+        <h2>2. Delegación de eventos</h2>
+        <div class="codigo">
+            <pre>document.querySelectorAll(".btn").forEach(b => {
+    b.addEventListener("click", () => {
+        console.log("clic");
+    });
+});</pre>
+        </div>
+        <label>❌ ¿Qué problema tiene?</label>
+        <textarea rows="2" placeholder="Escribí acá..."></textarea>
+        <label>📖 ¿Por qué ocurre?</label>
+        <textarea rows="3" placeholder="Escribí acá..."></textarea>
+        <label>✅ Solución correcta</label>
+        <textarea rows="4" placeholder="Escribí acá..."></textarea>
+    </div>
+
+    <!-- Ejercicio 3 -->
+    <div class="ejercicio">
+        <h2>3. data-*</h2>
+        <div class="codigo">
+            <pre>&lt;button data-precio="100"&gt;Comprar&lt;/button&gt;
+&lt;script&gt;
+    document.querySelector("button").addEventListener("click", (e) => {
+        console.log(e.target.dataset.precio + 10);
+    });
+&lt;/script&gt;</pre>
+        </div>
+        <label>❌ Resultado inesperado (qué muestra en consola)</label>
+        <textarea rows="2" placeholder="Escribí acá..."></textarea>
+        <label>📖 ¿Por qué ocurre?</label>
+        <textarea rows="3" placeholder="Escribí acá..."></textarea>
+        <label>✅ Solución correcta</label>
+        <textarea rows="2" placeholder="Escribí acá..."></textarea>
+    </div>
+
+    <!-- Ejercicio 4 -->
+    <div class="ejercicio">
+        <h2>4. Timer (setTimeout)</h2>
+        <div class="codigo">
+            <pre>setTimeout(console.log("Hola"), 2000);</pre>
+        </div>
+        <label>❌ ¿Qué error hay?</label>
+        <textarea rows="2" placeholder="Escribí acá..."></textarea>
+        <label>📖 ¿Por qué ocurre?</label>
+        <textarea rows="3" placeholder="Escribí acá..."></textarea>
+        <label>✅ Solución correcta</label>
+        <textarea rows="2" placeholder="Escribí acá..."></textarea>
+    </div>
+
+    <!-- Ejercicio 5 -->
+    <div class="ejercicio">
+        <h2>5. localStorage</h2>
+        <div class="codigo">
+            <pre>localStorage.setItem("usuario", {nombre: "Juan"});</pre>
+        </div>
+        <label>❌ ¿Qué guarda realmente?</label>
+        <textarea rows="2" placeholder="Escribí acá..."></textarea>
+        <label>📖 ¿Por qué ocurre?</label>
+        <textarea rows="3" placeholder="Escribí acá..."></textarea>
+        <label>✅ Solución correcta</label>
+        <textarea rows="2" placeholder="Escribí acá..."></textarea>
+    </div>
+
+    <!-- Ejercicio 6 -->
+    <div class="ejercicio">
+        <h2>6. fetch (asincronía)</h2>
+        <div class="codigo">
+            <pre>let usuarios;
+fetch("https://jsonplaceholder.typicode.com/users")
+    .then(r => r.json())
+    .then(data => { usuarios = data; });
+console.log(usuarios);</pre>
+        </div>
+        <label>❌ ¿Qué muestra el console.log?</label>
+        <textarea rows="2" placeholder="Escribí acá..."></textarea>
+        <label>📖 ¿Por qué ocurre?</label>
+        <textarea rows="3" placeholder="Escribí acá..."></textarea>
+        <label>✅ Solución correcta</label>
+        <textarea rows="4" placeholder="Escribí acá..."></textarea>
+    </div>
+
+    <hr>
+    <p>📌 Completá todas las respuestas. Podés imprimir esta página o escribir directamente en los campos.</p>
+</body>
+</html>

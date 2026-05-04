@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resaltar Campo en Foco</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .campo-estilo {
+            padding: 10px;
+            margin: 10px 0;
+            width: 300px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .campo-enfocado {
+            border-color: #2196F3;
+            box-shadow: 0 0 8px rgba(33, 150, 243, 0.3);
+            outline: none;
+        }
+        .instrucciones {
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Formulario de Práctica</h1>
+    
+    <p class="instrucciones">Haz clic en cada campo para ver cómo se resalta</p>
+    
+    <div>
+        <label for="nombre">Nombre:</label><br>
+        <input type="text" id="nombre" class="campo-estilo" placeholder="Escribe tu nombre">
+    </div>
+    
+    <div>
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" class="campo-estilo" placeholder="ejemplo@correo.com">
+    </div>
+    
+    <div>
+        <label for="mensaje">Mensaje:</label><br>
+        <textarea id="mensaje" class="campo-estilo" placeholder="Escribe tu mensaje..." rows="4"></textarea>
+    </div>
+    
+    <script>
+        // PASO 1: Seleccionar todos los campos
+        var todosLosCampos = document.querySelectorAll('.campo-estilo');
+        
+        // PASO 2: Crear función para cuando el campo recibe foco
+        function cuandoEntraAlCampo() {
+            // 'this' se refiere al campo actual
+            this.classList.add('campo-enfocado');
+            console.log('Campo activado: ' + this.id);
+        }
+        
+        // PASO 3: Crear función para cuando el campo pierde foco
+        function cuandoSaleDelCampo() {
+            // 'this' se refiere al campo actual
+            this.classList.remove('campo-enfocado');
+            console.log('Campo desactivado: ' + this.id);
+            
+            // Cambiar fondo si tiene texto
+            if (this.value.trim() !== '') {
+                this.style.backgroundColor = '#f0f8ff';
+            } else {
+                this.style.backgroundColor = '';
+            }
+        }
+        
+        // PASO 4: Crear función para mostrar lo que se escribe
+        function cuandoSeEscribe() {
+            console.log('Escribiendo en ' + this.id + ': ' + this.value);
+        }
+        
+        // PASO 5: Agregar los eventos a cada campo
+        for (var i = 0; i < todosLosCampos.length; i++) {
+            var campo = todosLosCampos[i];
+            
+            // Cuando el campo recibe atención
+            campo.addEventListener('focus', cuandoEntraAlCampo);
+            
+            // Cuando el campo pierde atención
+            campo.addEventListener('blur', cuandoSaleDelCampo);
+            
+            // Cuando el usuario escribe
+            campo.addEventListener('input', cuandoSeEscribe);
+        }
+        
+        // Mensaje en consola
+        console.log('Listo! Haz clic en los campos.');
+    </script>
+</body>
+</html>

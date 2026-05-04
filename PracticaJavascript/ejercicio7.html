@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presiona y Cambia Color</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        
+        h1 {
+            color: #333;
+        }
+        
+        .instrucciones {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .mi-div {
+            width: 300px;
+            height: 200px;
+            margin: 20px auto;
+            border-radius: 10px;
+            background-color: red;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            border: 3px solid darkred;
+            transition: background-color 0.2s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .mi-div:hover {
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+        
+        .texto-estado {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ejercicio 7: Presiona y Cambia Color</h1>
+    
+    <p class="instrucciones">
+        Presiona el botón del mouse sobre el cuadro rojo<br>
+        Mientras mantengas presionado, se pondrá amarillo<br>
+        Cuando sueltes, volverá a rojo
+    </p>
+    
+    <div class="mi-div" id="miDiv">
+        PRESIONA AQUÍ CON EL MOUSE
+    </div>
+    
+    <p class="texto-estado" id="estado">Estado: No presionado</p>
+
+    <script>
+        // PASO 1: Seleccionar el div
+        var miDiv = document.getElementById('miDiv');
+        var estado = document.getElementById('estado');
+        
+        // PASO 2: Función para cuando PRESIONO el mouse
+        function cuandoPresiono() {
+            // Cambiar a color amarillo
+            miDiv.style.backgroundColor = 'yellow';
+            miDiv.style.color = 'black';
+            miDiv.textContent = '¡MOUSE PRESIONADO!';
+            
+            // Actualizar texto
+            estado.textContent = 'Estado: Mouse PRESIONADO';
+            estado.style.color = 'orange';
+            
+            console.log('Mouse presionado - Color: AMARILLO');
+        }
+        
+        // PASO 3: Función para cuando SUELTO el mouse
+        function cuandoSuelto() {
+            // Volver a color rojo
+            miDiv.style.backgroundColor = 'red';
+            miDiv.style.color = 'white';
+            miDiv.textContent = 'PRESIONA AQUÍ CON EL MOUSE';
+            
+            // Actualizar texto
+            estado.textContent = 'Estado: Mouse SOLTADO';
+            estado.style.color = 'green';
+            
+            console.log('Mouse soltado - Color: ROJO');
+        }
+        
+        // PASO 4: Agregar los eventos al div
+        miDiv.addEventListener('mousedown', cuandoPresiono);
+        miDiv.addEventListener('mouseup', cuandoSuelto);
+        
+        // PASO 5: Mensaje inicial
+        console.log('Ejercicio listo. Presiona el cuadro rojo.');
+    </script>
+</body>
+</html>

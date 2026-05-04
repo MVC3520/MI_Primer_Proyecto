@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        
+        input { 
+            padding: 10px; 
+            width: 250px; 
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        .valido { 
+            border: 2px solid green; 
+            background-color: #f0fff0;
+        }
+        
+        .invalido { 
+            border: 2px solid red; 
+            background-color: #fff0f0;
+        }
+        
+        .mensaje { 
+            margin-top: 10px; 
+            margin-bottom: 15px;
+            min-height: 25px;
+            font-size: 14px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        button:hover:not(:disabled) {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h3>Valida tu email:</h3>
+    <input type="text" id="email" placeholder="email@ejemplo.com">
+    <div id="mensaje" class="mensaje">Escribe tu email</div>
+    
+    <button id="btnEnviar" disabled>Enviar Formulario</button>
+    
+    <script>
+        // Seleccionar elementos
+        var input = document.getElementById('email');
+        var mensaje = document.getElementById('mensaje');
+        var btnEnviar = document.getElementById('btnEnviar');
+        
+        // Función para validar email
+        function validarEmail(email) {
+            if (email === '') {
+                return false;
+            }
+            
+            // Verifica que tenga @ y punto, y que @ esté antes del último punto
+            return email.includes('@') && 
+                   email.includes('.') && 
+                   email.indexOf('@') < email.lastIndexOf('.');
+        }
+        
+        // Evento input - cada vez que el usuario escribe
+        input.addEventListener('input', function() {
+            var email = this.value;
+            var esValido = validarEmail(email);
+            
+            // Actualizar mensaje y estilos
+            if (email === '') {
+                mensaje.textContent = 'Escribe tu email';
+                input.className = '';
+            } else if (esValido) {
+                mensaje.textContent = '✅ Email válido';
+                input.className = 'valido';
+            } else {
+                mensaje.textContent = '❌ Email inválido';
+                input.className = 'invalido';
+            }
+            
+            // Habilitar o deshabilitar botón
+            btnEnviar.disabled = !esValido;
+        });
+        
+        // Evento para el botón enviar
+        btnEnviar.addEventListener('click', function() {
+            var email = input.value;
+            alert('✅ Formulario enviado correctamente!\nEmail: ' + email);
+            console.log('Formulario enviado con email:', email);
+        });
+        
+        console.log('Validación de email activada');
+        console.log('Escribe un email válido para habilitar el botón Enviar');
+    </script>
+</body>
+</html>

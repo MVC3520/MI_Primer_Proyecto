@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h3>Validación de Email</h3>
+    
+    <input type="text" id="email" placeholder="email@ejemplo.com">
+    <div id="mensaje"></div>
+    <button id="enviar" disabled>Enviar</button>
+    
+    <script>
+        var email = document.getElementById('email');
+        var mensaje = document.getElementById('mensaje');
+        var enviar = document.getElementById('enviar');
+        
+        email.addEventListener('input', function() {
+            var texto = this.value;
+            
+            if (texto.includes('@') && texto.includes('.')) {
+                mensaje.textContent = '✅ Válido';
+                mensaje.style.color = 'green';
+                enviar.disabled = false;
+            } else {
+                mensaje.textContent = '❌ Necesita @ y .';
+                mensaje.style.color = 'red';
+                enviar.disabled = true;
+            }
+        });
+        
+        enviar.addEventListener('click', function() {
+            alert('Enviado: ' + email.value);
+        });
+    </script>
+</body>
+</html>

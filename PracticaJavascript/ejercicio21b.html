@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        #imagenGrande img {
+            width: 300px;
+            height: 200px;
+            border: 2px solid #333;
+            margin-bottom: 10px;
+        }
+        
+        .miniatura {
+            width: 80px;
+            height: 60px;
+            margin: 5px;
+            cursor: pointer;
+            border: 2px solid #ccc;
+        }
+        
+        .miniatura:hover {
+            border-color: blue;
+        }
+        
+        .activa {
+            border-color: green !important;
+        }
+    </style>
+</head>
+<body>
+    <h3>Galería Simple</h3>
+    
+    <div id="imagenGrande">
+        <img id="principal" src="" alt="Selecciona una imagen">
+    </div>
+    
+    <div id="galeria">
+        <img class="miniatura" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><rect width='100' height='100' fill='red'/><text x='50' y='50' font-size='20' fill='white' text-anchor='middle'>Rojo</text></svg>" 
+             data-large="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'><rect width='400' height='300' fill='red'/><text x='200' y='150' font-size='40' fill='white' text-anchor='middle'>ROJO GRANDE</text></svg>"
+             alt="Cuadrado rojo">
+        
+        <img class="miniatura" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><rect width='100' height='100' fill='blue'/><text x='50' y='50' font-size='20' fill='white' text-anchor='middle'>Azul</text></svg>" 
+             data-large="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'><rect width='400' height='300' fill='blue'/><text x='200' y='150' font-size='40' fill='white' text-anchor='middle'>AZUL GRANDE</text></svg>"
+             alt="Cuadrado azul">
+        
+        <img class="miniatura" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><rect width='100' height='100' fill='green'/><text x='50' y='50' font-size='20' fill='white' text-anchor='middle'>Verde</text></svg>" 
+             data-large="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'><rect width='400' height='300' fill='green'/><text x='200' y='150' font-size='40' fill='white' text-anchor='middle'>VERDE GRANDE</text></svg>"
+             alt="Cuadrado verde">
+    </div>
+    
+    <script>
+        var galeria = document.getElementById('galeria');
+        var principal = document.getElementById('principal');
+        
+        // Event delegation
+        galeria.addEventListener('click', function(e) {
+            if (e.target.classList.contains('miniatura')) {
+                // Obtener URL grande desde data-large
+                var urlGrande = e.target.dataset.large;
+                
+                // Cambiar imagen principal
+                principal.src = urlGrande;
+                principal.alt = e.target.alt;
+                
+                // Marcar miniatura activa
+                var miniaturas = document.querySelectorAll('.miniatura');
+                for (var i = 0; i < miniaturas.length; i++) {
+                    miniaturas[i].classList.remove('activa');
+                }
+                e.target.classList.add('activa');
+            }
+        });
+        
+        // Mostrar primera imagen al cargar
+        window.onload = function() {
+            var primera = document.querySelector('.miniatura');
+            if (primera) {
+                primera.click();
+            }
+        };
+    </script>
+</body>
+</html>

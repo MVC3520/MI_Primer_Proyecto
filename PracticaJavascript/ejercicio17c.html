@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 17: Combinar Métodos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        
+        #contenedorPrincipal {
+            border: 2px solid blue;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #f0f8ff;
+        }
+        
+        #otroContenedor {
+            border: 2px solid green;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #f0fff0;
+        }
+        
+        .item {
+            padding: 8px;
+            margin: 5px 0;
+            background-color: white;
+            border-radius: 4px;
+        }
+        
+        .modificado {
+            background-color: #ffeb3b;
+            color: #333;
+            font-weight: bold;
+            border-left: 4px solid #ff9800;
+        }
+        
+        button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        button:hover {
+            opacity: 0.9;
+        }
+        
+        #btnRestaurar {
+            background-color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <h2>Ejercicio 17: Seleccionar dentro de contenedor</h2>
+    
+    <div id="contenedorPrincipal">
+        <p class="item">Texto 1</p>
+        <p class="item">Texto 2</p>
+        <p class="item">Texto 3</p>
+    </div>
+
+    <div id="otroContenedor">
+        <p class="item">Texto A</p>
+        <p class="item">Texto B</p>
+    </div>
+
+    <div>
+        <button id="btnModificar">Modificar Primer Contenedor</button>
+        <button id="btnRestaurar">Restaurar Todo</button>
+    </div>
+
+    <script>
+        // 1. Seleccionar botones
+        var btnModificar = document.getElementById('btnModificar');
+        var btnRestaurar = document.getElementById('btnRestaurar');
+        
+        // 2. Función para modificar solo el primer contenedor
+        function modificarPrimerContenedor() {
+            console.log("Iniciando modificación...");
+            
+            // PASO A: Seleccionar el contenedor por ID
+            var primerContenedor = document.getElementById('contenedorPrincipal');
+            console.log("Contenedor encontrado:", primerContenedor.id);
+            
+            // PASO B: Buscar elementos DENTRO de ese contenedor
+            var elementosDentro = primerContenedor.querySelectorAll('.item');
+            console.log("Elementos encontrados dentro:", elementosDentro.length);
+            
+            // PASO C: Modificar cada elemento
+            for (var i = 0; i < elementosDentro.length; i++) {
+                var elemento = elementosDentro[i];
+                elemento.textContent = "Modificado: " + elemento.textContent;
+                elemento.classList.add('modificado');
+                console.log(" - " + elemento.textContent);
+            }
+            
+            console.log("¡Listo! Solo se modificó el primer contenedor.");
+            console.log("El segundo contenedor NO fue modificado.");
+        }
+        
+        // 3. Función para restaurar todo
+        function restaurarTodo() {
+            // Buscar TODOS los items de toda la página
+            var todosItems = document.querySelectorAll('.item');
+            
+            for (var i = 0; i < todosItems.length; i++) {
+                // Quitar "Modificado: " del texto
+                var textoOriginal = todosItems[i].textContent.replace('Modificado: ', '');
+                todosItems[i].textContent = textoOriginal;
+                
+                // Quitar la clase de modificación
+                todosItems[i].classList.remove('modificado');
+            }
+            
+            console.log("Todo restaurado a su estado original");
+        }
+        
+        // 4. Conectar botones a funciones
+        btnModificar.addEventListener('click', modificarPrimerContenedor);
+        btnRestaurar.addEventListener('click', restaurarTodo);
+        
+        // 5. Mensaje inicial en consola
+        console.log("=== EJERCICIO 17 ===");
+        console.log("Haz clic en 'Modificar Primer Contenedor'");
+        console.log("Observa que solo cambian los textos del contenedor azul");
+    </script>
+</body>
+</html>

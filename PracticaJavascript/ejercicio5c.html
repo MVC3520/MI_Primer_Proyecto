@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evitar Propagación de Eventos</title>
+    <style>
+        #contenedorExterno {
+            padding: 30px;
+            background-color: #e3f2fd;
+            border: 3px solid #1976d2;
+            border-radius: 10px;
+            margin: 20px;
+        }
+        
+        #contenedorInterno {
+            padding: 30px;
+            background-color: #fce4ec;
+            border: 3px solid #c2185b;
+            border-radius: 10px;
+            margin: 20px;
+        }
+        
+        #botonInterno {
+            padding: 15px 30px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        #botonSinStop {
+            padding: 15px 30px;
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        #consola {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-top: 20px;
+            font-family: monospace;
+            min-height: 100px;
+            border-radius: 5px;
+        }
+        
+        .mensaje-contenedor {
+            color: #1976d2;
+            font-weight: bold;
+        }
+        
+        .mensaje-boton {
+            color: #c2185b;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Demostración de stopPropagation()</h1>
+    
+    <div id="contenedorExterno">
+        <p>Contenedor Externo (Azul)</p>
+        
+        <div id="contenedorInterno">
+            <p>Contenedor Interno (Rosa)</p>
+            <button id="botonInterno">Botón con stopPropagation()</button>
+            <button id="botonSinStop">Botón SIN stopPropagation()</button>
+        </div>
+    </div>
+    
+    <h3>Registro de Eventos:</h3>
+    <div id="consola">
+        <p>Los eventos aparecerán aquí...</p>
+    </div>
+    
+    <script>
+        // Seleccionar elementos
+        var contenedor = document.getElementById('contenedorExterno');
+        var botonCon = document.getElementById('botonInterno');
+        var botonSin = document.getElementById('botonSinStop');
+        var consola = document.getElementById('consola');
+        
+        // Evento del contenedor
+        contenedor.addEventListener('click', function() {
+            consola.innerHTML += '<p>Contenedor clicado</p>';
+        });
+        
+        // Botón CON stopPropagation
+        botonCon.addEventListener('click', function(e) {
+            e.stopPropagation(); // ¡IMPORTANTE!
+            consola.innerHTML += '<p>Botón CON stopPropagation</p>';
+        });
+        
+        // Botón SIN stopPropagation
+        botonSin.addEventListener('click', function() {
+            consola.innerHTML += '<p>Botón SIN stopPropagation</p>';
+        });
+    </script>
+</body>
+</html>
+<!--
+Explicación visual de lo que pasa:
+
+CASO 1: Botón SIN stopPropagation()
+text
+Haces clic en el botón naranja → El navegador dice:
+
+1. "Botón naranja fue clicado" → Muestra alerta
+2. "¡Ah! El botón está dentro del div rosa" → Muestra mensaje del div rosa
+3. "¡Ah! El div rosa está dentro del div azul" → Muestra mensaje del div azul
+
+RESULTADO: Ves 3 mensajes
+CASO 2: Botón CON stopPropagation()
+text
+Haces clic en el botón verde → El navegador dice:
+
+1. "Botón verde fue clicado" → Muestra alerta
+2. "Ah, pero tiene stopPropagation()" → ¡SE DETIENE AQUÍ!
+
+RESULTADO: Solo ves 1 mensaje
+Analogía para entenderlo:
+Imagina que estás en tu habitación (botón) dentro de tu casa (div):
+
+Sin stopPropagation():
+
+Tocas la puerta de tu habitación → Suena en tu habitación ✓
+
+También suena el timbre de la casa ✓
+
+Tu mamá escucha en toda la casa ✓
+
+Con stopPropagation():
+
+Tocas la puerta de tu habitación → Suena en tu habitación ✓
+
+¡STOP! No suena el timbre de la casa ✗
+
+Tu mamá no escucha ✗
+
+¿Por qué usar stopPropagation()?
+Situaciones útiles:
+Menú desplegable: Clic en el menú no debe cerrar otros menús
+
+Modal/ventana: Clic dentro no debe cerrar la modal
+
+Juegos: Clic en un personaje no debe afectar al fondo
+
+Formularios: Validar un campo sin enviar el formulario
+
+Cuidado:
+No abuses de stopPropagation() porque puede hacer que otros eventos no funcionen como esperas.
+
+-->

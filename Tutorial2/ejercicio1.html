@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 1</title>
+  <style>
+    li { padding: 8px; margin: 4px; background: #eee; cursor: pointer; }
+    .resaltado { background: lightgreen; }
+  </style>
+</head>
+<body>
+  <ul id="lista">
+    <li><span>Elemento 1</span></li>
+    <li><span>Elemento 2</span></li>
+    <li><span>Elemento 3</span></li>
+  </ul>
+  
+  <script>
+    // Al hacer clic en un <span>, el <li> padre debe tener clase 'resaltado'
+    // Si otro <li> estaba resaltado, se lo quitas.
+    const lista = document.getElementById('lista');
+    lista.addEventListener('click', (e) => {
+    if (e.target.tagName === 'SPAN') {
+        // Quitar resaltado de todos los li
+        document.querySelectorAll('li').forEach(li => li.classList.remove('resaltado'));
+        // Resaltar el li padre
+        e.target.closest('li').classList.add('resaltado');
+    }
+    });
+
+  </script>
+</body>
+</html>

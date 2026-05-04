@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navegación DOM - Paso a paso</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 20px;
+        }
+
+        .contenedor {
+            border: 2px solid #333;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        ul {
+            background: #f0f0f0;
+            padding: 10px;
+        }
+
+        li {
+            margin: 5px;
+            padding: 5px;
+            background: white;
+            cursor: pointer;
+        }
+
+        button {
+            margin: 5px;
+        }
+
+        .seleccionado {
+            background: lightblue;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+<h2>📌 Navegación DOM - Haz clic en un producto</h2>
+<div class="contenedor">
+  <ul id="lista">
+    <li class="item">Producto 1</li>
+    <li class="item">Producto 2</li>
+    <li class="item">Producto 3</li>
+  </ul>
+</div>
+<div>
+  <button id="btnParent">Ver padre directo (parentNode)</button>
+  <button id="btnClosest">Ver contenedor más cercano (closest)</button>
+  <button id="btnNext">Siguiente producto</button>
+  <button id="btnPrev">Anterior producto</button>
+</div>
+<p id="info">👉 Primero haz clic en un producto.</p>
+<script>
+  let elementoActual = null;
+  const info = document.getElementById('info');
+
+  // 1. Al hacer clic en un producto, lo resaltamos y guardamos
+  document.querySelectorAll('.item').forEach(li => {
+    li.addEventListener('click', () => {
+      if (elementoActual) elementoActual.classList.remove('seleccionado');
+      elementoActual = li;
+      li.classList.add('seleccionado');
+      info.textContent = `✅ Seleccionaste: ${li.textContent}`;
+    });
+  });
+
+  // 2. Botón: parentNode
+  document.getElementById('btnParent').addEventListener('click', () => {
+    if (!elementoActual) { alert('Primero haz clic en un producto'); return; }
+    const padre = elementoActual.parentNode;
+    info.textContent = `📁 El padre es <${padre.tagName}> con id="${padre.id}"`;
+  });
+
+  // 3. Botón: closest('.contenedor')
+  document.getElementById('btnClosest').addEventListener('click', () => {
+    if (!elementoActual) { alert('Primero haz clic en un producto'); return; }
+    const ancestro = elementoActual.closest('.contenedor');
+    info.textContent = ancestro ? '🔍 El ancestro con clase "contenedor" existe (es el div con borde)' : '❌ No se encontró .contenedor';
+  });
+
+  // 4. Botón: siguiente hermano
+  document.getElementById('btnNext').addEventListener('click', () => {
+    if (!elementoActual) { alert('Primero haz clic en un producto'); return; }
+    const sig = elementoActual.nextElementSibling;
+    if (sig) {
+      elementoActual.classList.remove('seleccionado');
+      elementoActual = sig;
+      sig.classList.add('seleccionado');
+      info.textContent = `➡️ Ahora seleccionaste: ${sig.textContent}`;
+    } else {
+      info.textContent = '⚠️ No hay siguiente hermano.';
+    }
+  });
+
+  // 5. Botón: anterior hermano
+  document.getElementById('btnPrev').addEventListener('click', () => {
+    if (!elementoActual) { alert('Primero haz clic en un producto'); return; }
+    const ant = elementoActual.previousElementSibling;
+    if (ant) {
+      elementoActual.classList.remove('seleccionado');
+      elementoActual = ant;
+      ant.classList.add('seleccionado');
+      info.textContent = `⬅️ Ahora seleccionaste: ${ant.textContent}`;
+    } else {
+      info.textContent = '⚠️ No hay anterior hermano.';
+    }
+  });
+</script>
+</body>
+
+</html>

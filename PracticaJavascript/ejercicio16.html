@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>:nth-child() Simple</title>
+</head>
+<body>
+    <h3>Modificar elementos específicos</h3>
+    
+    <ul>
+        <li>Elemento 1</li>
+        <li>Elemento 2</li>
+        <li>Elemento 3</li>
+        <li>Elemento 4</li>
+    </ul>
+    
+    <button onclick="modificarPrimero()">Cambiar Primero</button>
+    <button onclick="modificarTercero()">Cambiar Tercero</button>
+    <button onclick="modificarUltimo()">Cambiar Último</button>
+    
+    <script>
+        // Modificar el PRIMER elemento (posición 1)
+        function modificarPrimero() {
+            // :nth-child(1) selecciona el primer li
+            var primero = document.querySelector('li:nth-child(1)');
+            primero.textContent = '✨ PRIMERO modificado';
+            primero.style.backgroundColor = 'yellow';
+            console.log('Primer elemento cambiado');
+        }
+        
+        // Modificar el TERCER elemento (posición 3)
+        function modificarTercero() {
+            // :nth-child(3) selecciona el tercer li
+            var tercero = document.querySelector('li:nth-child(3)');
+            tercero.textContent = '✨ TERCERO modificado';
+            tercero.style.backgroundColor = 'lightblue';
+            console.log('Tercer elemento cambiado');
+        }
+        
+        // Modificar el ÚLTIMO elemento
+        function modificarUltimo() {
+            // :last-child selecciona el último li
+            var ultimo = document.querySelector('li:last-child');
+            ultimo.textContent = '✨ ÚLTIMO modificado';
+            ultimo.style.backgroundColor = 'lightgreen';
+            console.log('Último elemento cambiado');
+        }
+        
+        console.log('Para seleccionar por posición:');
+        console.log('Primero: li:nth-child(1)');
+        console.log('Tercero: li:nth-child(3)');
+        console.log('Último: li:last-child');
+    </script>
+</body>
+</html>

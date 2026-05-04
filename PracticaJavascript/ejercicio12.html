@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccionar Todos por Clase</title>
+    <style>
+        .item-lista {
+            padding: 10px;
+            margin: 5px;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <h2>Ejercicio 12: querySelectorAll()</h2>
+    <p>Selecciona TODOS los elementos con clase "item-lista"</p>
+    
+    <ul>
+        <li class="item-lista">🍎 Manzana</li>
+        <li class="item-lista">🍌 Banana</li>
+        <li class="item-lista">🍊 Naranja</li>
+        <li class="item-lista">🍇 Uvas</li>
+    </ul>
+    
+    <div>
+        <button id="btnRojo">Rojo</button>
+        <button id="btnAzul">Azul</button>
+        <button id="btnVerde">Verde</button>
+        <button id="btnOriginal">Original</button>
+    </div>
+    
+    <script>
+        // EJERCICIO 12: Seleccionar TODOS los elementos
+        
+        // PASO 1: Seleccionar TODOS los elementos con clase "item-lista"
+        var todosItems = document.querySelectorAll('.item-lista');
+        
+        // PASO 2: Guardar color original
+        var colorOriginal = 'black';
+        
+        // PASO 3: Seleccionar botones
+        var btnRojo = document.getElementById('btnRojo');
+        var btnAzul = document.getElementById('btnAzul');
+        var btnVerde = document.getElementById('btnVerde');
+        var btnOriginal = document.getElementById('btnOriginal');
+        
+        // PASO 4: Función para cambiar a ROJO
+        function cambiarRojo() {
+            // Recorrer TODOS los elementos
+            for (var i = 0; i < todosItems.length; i++) {
+                todosItems[i].style.color = 'red';
+            }
+            console.log('Todos los elementos cambiados a ROJO');
+        }
+        
+        // PASO 5: Función para cambiar a AZUL
+        function cambiarAzul() {
+            for (var i = 0; i < todosItems.length; i++) {
+                todosItems[i].style.color = 'blue';
+            }
+            console.log('Todos los elementos cambiados a AZUL');
+        }
+        
+        // PASO 6: Función para cambiar a VERDE
+        function cambiarVerde() {
+            for (var i = 0; i < todosItems.length; i++) {
+                todosItems[i].style.color = 'green';
+            }
+            console.log('Todos los elementos cambiados a VERDE');
+        }
+        
+        // PASO 7: Función para volver al color ORIGINAL
+        function cambiarOriginal() {
+            for (var i = 0; i < todosItems.length; i++) {
+                todosItems[i].style.color = colorOriginal;
+            }
+            console.log('Color original restaurado');
+        }
+        
+        // PASO 8: Conectar botones
+        btnRojo.addEventListener('click', cambiarRojo);
+        btnAzul.addEventListener('click', cambiarAzul);
+        btnVerde.addEventListener('click', cambiarVerde);
+        btnOriginal.addEventListener('click', cambiarOriginal);
+        
+        // PASO 9: Configurar botones
+        var botones = document.querySelectorAll('button');
+        for (var i = 0; i < botones.length; i++) {
+            botones[i].style.padding = '8px 16px';
+            botones[i].style.margin = '5px';
+            botones[i].style.cursor = 'pointer';
+        }
+        
+        // PASO 10: Mensaje inicial
+        console.log('Elementos encontrados: ' + todosItems.length);
+        console.log('querySelectorAll selecciona TODOS los elementos');
+    </script>
+</body>
+</html>

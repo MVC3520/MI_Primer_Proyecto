@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 18: Selectores Dinámicos</title>
+    <style>
+        .caja {
+            border: 2px solid #3498db;
+            padding: 15px;
+            margin: 15px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+        }
+        
+        .titulo {
+            color: #2c3e50;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .contenido {
+            color: #7f8c8d;
+            padding: 10px;
+            background-color: white;
+            border-radius: 4px;
+        }
+        
+        .modificado {
+            background-color: #ffeb3b;
+            color: #333;
+            font-weight: bold;
+            border-left: 4px solid #ff9800;
+        }
+        
+        button {
+            padding: 8px 16px;
+            margin: 5px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <h2>Ejercicio 18: closest() y querySelector()</h2>
+    
+    <div class="caja">
+        <h3 class="titulo">Caja 1</h3>
+        <p class="contenido">Este es el contenido de la caja 1</p>
+        <button class="btn-modificar">Modificar esta Caja</button>
+    </div>
+    
+    <div class="caja">
+        <h3 class="titulo">Caja 2</h3>
+        <p class="contenido">Este es el contenido de la caja 2</p>
+        <button class="btn-modificar">Modificar esta Caja</button>
+    </div>
+    
+    <div class="caja">
+        <h3 class="titulo">Caja 3</h3>
+        <p class="contenido">Este es el contenido de la caja 3</p>
+        <button class="btn-modificar">Modificar esta Caja</button>
+    </div>
+
+    <script>
+        // EJERCICIO 18: closest() y querySelector()
+        
+        // 1. Seleccionar TODOS los botones
+        var botones = document.querySelectorAll('.btn-modificar');
+        
+        // 2. Para CADA botón, agregar un evento
+        for (var i = 0; i < botones.length; i++) {
+            botones[i].addEventListener('click', function() {
+                console.log("Botón clickeado!");
+                
+                // PASO A: Encontrar la CAJA PADRE usando closest()
+                // closest('.caja') busca hacia arriba el elemento con clase "caja"
+                var cajaPadre = this.closest('.caja');
+                console.log("Caja padre encontrada:", cajaPadre.querySelector('.titulo').textContent);
+                
+                // PASO B: Buscar DENTRO de la caja el contenido a modificar
+                // querySelector busca dentro de cajaPadre (no en toda la página)
+                var contenido = cajaPadre.querySelector('.contenido');
+                console.log("Contenido encontrado:", contenido.textContent);
+                
+                // PASO C: Modificar el contenido
+                contenido.textContent = "✅ CONTENIDO MODIFICADO!";
+                contenido.classList.add('modificado');
+                
+                console.log("Solo se modificó esta caja, las otras no.");
+            });
+        }
+        
+        // 3. Mensaje inicial
+        console.log("=== EJERCICIO 18 ===");
+        console.log("Haz clic en cualquier botón 'Modificar esta Caja'");
+        console.log("Cada botón modifica SOLO su propia caja");
+        console.log("Se usa closest() para encontrar la caja padre");
+        console.log("Se usa querySelector() para buscar dentro de esa caja");
+    </script>
+</body>
+</html>
+<!--
+Respuestas a las preguntas de reflexión:
+¿Por qué usar closest() en lugar de getElementById()?
+
+Porque closest() encuentra el padre dinámicamente desde el botón clickeado
+
+getElementById() necesitaría IDs diferentes para cada sección
+
+closest() funciona con clases reutilizables
+
+¿Qué ventaja tiene buscar con querySelector() dentro de un elemento específico?
+
+Solo busca dentro de esa sección, no en toda la página
+
+Evita modificar elementos similares en otras secciones
+
+Es más eficiente y específico
+
+¿Cómo se asegura que cada botón modifique solo su sección correspondiente?
+
+Usando this.closest() para encontrar solo la sección padre del botón clickeado
+
+Cada botón encuentra su propio contexto
+
+No se usan IDs fijos, sino relaciones dinámicas
+-->

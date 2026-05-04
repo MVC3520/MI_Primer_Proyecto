@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resaltar Campo en Foco</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .campo-estilo {
+            padding: 10px;
+            margin: 10px 0;
+            width: 300px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .campo-enfocado {
+            border-color: #2196F3;
+            box-shadow: 0 0 8px rgba(33, 150, 243, 0.3);
+            outline: none;
+        }
+        .instrucciones {
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Formulario de Práctica</h1>
+    
+    <p class="instrucciones">Haz clic en cada campo para ver cómo se resalta</p>
+    
+    <div>
+        <label for="nombre">Nombre:</label><br>
+        <input type="text" id="nombre" class="campo-estilo" placeholder="Escribe tu nombre">
+    </div>
+    
+    <div>
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" class="campo-estilo" placeholder="ejemplo@correo.com">
+    </div>
+    
+    <div>
+        <label for="mensaje">Mensaje:</label><br>
+        <textarea id="mensaje" class="campo-estilo" placeholder="Escribe tu mensaje..." rows="4"></textarea>
+    </div>
+    
+    <script>
+        // 1. Encontrar todos los campos
+        var campos = document.querySelectorAll('.campo-estilo');
+        
+        // 2. Función para activar campo
+        function activarCampo() {
+            this.classList.add('campo-enfocado');
+        }
+        
+        // 3. Función para desactivar campo
+        function desactivarCampo() {
+            this.classList.remove('campo-enfocado');
+        }
+        
+        // 4. Poner eventos a cada campo
+        for (var i = 0; i < campos.length; i++) {
+            campos[i].addEventListener('focus', activarCampo);
+            campos[i].addEventListener('blur', desactivarCampo);
+        }
+    </script>
+</body>
+</html>

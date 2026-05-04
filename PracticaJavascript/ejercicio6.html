@@ -1,0 +1,258 @@
+Ejercicio 6: Crear Lista de Tareas con data-id y remove()
+Problema: Aprende a eliminar tareas de una lista utilizando data-id y remove().
+Actividad:
+Crea una lista en HTML con algunas tareas y un botón "Eliminar" junto a cada tarea. Cada tarea debe tener un atributo data-id único.
+Al hacer clic en "Eliminar", identifica la tarea usando e.target.dataset.id y elimina solo esa tarea del DOM.
+Asegúrate de que el evento solo afecte al botón "Eliminar".
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tareas Interactiva</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        #formularioTarea {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        #nuevaTarea {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        #agregarTarea {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        #agregarTarea:hover {
+            background-color: #45a049;
+        }
+        
+        #listaTareas {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .tarea {
+            background-color: #f9f9f9;
+            margin: 8px 0;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 5px solid #2196F3;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .tarea:hover {
+            background-color: #f1f1f1;
+            transform: translateX(5px);
+        }
+        
+        .tarea.completada {
+            opacity: 0.7;
+            border-left-color: #4CAF50;
+            text-decoration: line-through;
+        }
+        
+        .botones-tarea {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .btn-completar, .btn-eliminar {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .btn-completar {
+            background-color: #2196F3;
+            color: white;
+        }
+        
+        .btn-eliminar {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        .contador {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e8f5e8;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>📝 Gestor de Tareas</h1>
+    
+    <div id="formularioTarea">
+        <input type="text" id="nuevaTarea" placeholder="Escribe una nueva tarea...">
+        <button id="agregarTarea">➕ Agregar</button>
+    </div>
+    
+    <ul id="listaTareas">
+        <!-- Las tareas se agregarán dinámicamente -->
+    </ul>
+    
+    <div class="contador" id="contadorTareas">
+        Tareas pendientes: 0
+    </div>
+    
+    <script>
+        // Variables globales
+        let contadorId = 1;
+        const listaTareas = document.getElementById('listaTareas');
+        const inputNuevaTarea = document.getElementById('nuevaTarea');
+        const botonAgregar = document.getElementById('agregarTarea');
+        const contadorTareas = document.getElementById('contadorTareas');
+
+        // Función para actualizar el contador de tareas
+        function actualizarContador() {
+            const tareasPendientes = document.querySelectorAll('.tarea:not(.completada)').length;
+            const totalTareas = document.querySelectorAll('.tarea').length;
+            
+            contadorTareas.textContent = `Tareas: ${tareasPendientes} pendientes de ${totalTareas} total`;
+            
+            if (tareasPendientes === 0 && totalTareas > 0) {
+                contadorTareas.style.backgroundColor = '#4CAF50';
+                contadorTareas.textContent += ' - ¡Todas completadas! 🎉';
+            } else {
+                contadorTareas.style.backgroundColor = '#e8f5e8';
+            }
+        }
+
+        // Función para crear una nueva tarea
+        function crearTareaElemento(texto, id) {
+            // Crear elemento li
+            const li = document.createElement('li');
+            li.className = 'tarea';
+            li.dataset.id = id; // Asignar ID único
+            
+            // Crear contenido de la tarea
+            li.innerHTML = `
+                <span class="texto-tarea">${texto}</span>
+                <div class="botones-tarea">
+                    <button class="btn-completar" data-action="completar">Completar</button>
+                    <button class="btn-eliminar" data-action="eliminar">✖ Eliminar</button>
+                </div>
+            `;
+            
+            return li;
+        }
+
+        // Función para agregar una nueva tarea
+        function agregarTarea() {
+            const texto = inputNuevaTarea.value.trim();
+            
+            if (texto === '') {
+                alert('Por favor, escribe una tarea');
+                return;
+            }
+            
+            // Crear y agregar la tarea
+            const nuevaTarea = crearTareaElemento(texto, contadorId);
+            listaTareas.appendChild(nuevaTarea);
+            
+            // Incrementar contador de ID
+            contadorId++;
+            
+            // Limpiar el input
+            inputNuevaTarea.value = '';
+            inputNuevaTarea.focus();
+            
+            // Actualizar contador
+            actualizarContador();
+            
+            console.log(`Tarea agregada: "${texto}" (ID: ${contadorId - 1})`);
+        }
+
+        // Usar event delegation para manejar todos los botones de tareas
+        listaTareas.addEventListener('click', (evento) => {
+            const boton = evento.target;
+            const tarea = boton.closest('.tarea');
+            
+            if (!tarea) return; // Si no se encontró la tarea, salir
+            
+            const tareaId = tarea.dataset.id;
+            const accion = boton.dataset.action;
+            
+            switch(accion) {
+                case 'eliminar':
+                    // Eliminar la tarea del DOM
+                    tarea.style.transform = 'translateX(100px)';
+                    tarea.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        tarea.remove();
+                        actualizarContador();
+                        console.log(`Tarea ID ${tareaId} eliminada`);
+                    }, 300);
+                    break;
+                    
+                case 'completar':
+                    // Marcar como completada
+                    tarea.classList.toggle('completada');
+                    
+                    const estaCompletada = tarea.classList.contains('completada');
+                    boton.textContent = estaCompletada ? 'Reactivar' : 'Completar';
+                    boton.style.backgroundColor = estaCompletada ? '#FF9800' : '#2196F3';
+                    
+                    actualizarContador();
+                    console.log(`Tarea ID ${tareaId} ${estaCompletada ? 'completada' : 'reactivada'}`);
+                    break;
+            }
+        });
+
+        // Evento para agregar tarea con el botón
+        botonAgregar.addEventListener('click', agregarTarea);
+
+        // Evento para agregar tarea con Enter
+        inputNuevaTarea.addEventListener('keypress', (evento) => {
+            if (evento.key === 'Enter') {
+                agregarTarea();
+            }
+        });
+
+        // Inicializar con algunas tareas de ejemplo
+        window.addEventListener('DOMContentLoaded', () => {
+            const tareasEjemplo = [
+                'Aprender JavaScript',
+                'Practicar eventos del DOM',
+                'Crear proyectos prácticos',
+                'Revisar la documentación'
+            ];
+            
+            tareasEjemplo.forEach(tarea => {
+                const nuevaTarea = crearTareaElemento(tarea, contadorId);
+                listaTareas.appendChild(nuevaTarea);
+                contadorId++;
+            });
+            
+            actualizarContador();
+        });
+    </script>
+</body>
+</html>

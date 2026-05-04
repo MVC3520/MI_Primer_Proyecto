@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccionar Elementos por Posición</title>
+    <style>
+        li {
+            padding: 10px;
+            margin: 5px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .modificado {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+            transform: scale(1.05);
+        }
+        
+        .especial {
+            background-color: #2ecc71;
+            color: white;
+            border-left: 5px solid #27ae60;
+        }
+    </style>
+</head>
+<body>
+    <h2>Ejercicio 16: :nth-child()</h2>
+    <p>Seleccionar elementos por su posición en la lista</p>
+    
+    <ul id="miLista">
+        <li>🍎 Manzana</li>
+        <li>🍌 Banana</li>
+        <li>🍊 Naranja</li>
+        <li>🍇 Uvas</li>
+        <li>🍓 Frutilla</li>
+        <li>🍍 Piña</li>
+    </ul>
+    
+    <div style="margin: 20px 0;">
+        <button id="btnPrimero">Modificar 1°</button>
+        <button id="btnSegundo">Modificar 2°</button>
+        <button id="btnTercero">Modificar 3°</button>
+        <button id="btnCuarto">Modificar 4°</button>
+        <button id="btnUltimo">Modificar Último</button>
+        <button id="btnPares">Modificar Pares</button>
+        <button id="btnRestaurar">Restaurar Todo</button>
+    </div>
+    
+    <script>
+        // EJERCICIO 16: Seleccionar por posición
+        
+        // Función para modificar el PRIMER elemento
+        function modificarPrimero() {
+            // :nth-child(1) selecciona el PRIMER hijo
+            var primero = document.querySelector('li:nth-child(1)');
+            primero.textContent = '✅ PRIMERO - Modificado';
+            primero.classList.add('modificado');
+            console.log('Primer elemento modificado');
+        }
+        
+        // Función para modificar el SEGUNDO elemento
+        function modificarSegundo() {
+            // :nth-child(2) selecciona el SEGUNDO hijo
+            var segundo = document.querySelector('li:nth-child(2)');
+            segundo.textContent = '✅ SEGUNDO - Modificado';
+            segundo.classList.add('modificado');
+            console.log('Segundo elemento modificado');
+        }
+        
+        // Función para modificar el TERCER elemento
+        function modificarTercero() {
+            // :nth-child(3) selecciona el TERCER hijo
+            var tercero = document.querySelector('li:nth-child(3)');
+            tercero.textContent = '✅ TERCERO - Modificado';
+            tercero.classList.add('modificado');
+            console.log('Tercer elemento modificado');
+        }
+        
+        // Función para modificar el CUARTO elemento
+        function modificarCuarto() {
+            // :nth-child(4) selecciona el CUARTO hijo
+            var cuarto = document.querySelector('li:nth-child(4)');
+            cuarto.textContent = '✅ CUARTO - Modificado';
+            cuarto.classList.add('modificado');
+            console.log('Cuarto elemento modificado');
+        }
+        
+        // Función para modificar el ÚLTIMO elemento
+        function modificarUltimo() {
+            // :last-child selecciona el ÚLTIMO hijo
+            var ultimo = document.querySelector('li:last-child');
+            ultimo.textContent = '✅ ÚLTIMO - Modificado';
+            ultimo.classList.add('modificado');
+            ultimo.classList.add('especial');
+            console.log('Último elemento modificado');
+        }
+        
+        // Función para modificar elementos PARES
+        function modificarPares() {
+            // :nth-child(even) selecciona elementos PARES (2, 4, 6...)
+            var pares = document.querySelectorAll('li:nth-child(even)');
+            
+            for (var i = 0; i < pares.length; i++) {
+                pares[i].textContent = '⭐ PAR - Modificado';
+                pares[i].classList.add('especial');
+            }
+            console.log(pares.length + ' elementos pares modificados');
+        }
+        
+        // Función para RESTAURAR todo
+        function restaurarTodo() {
+            var todos = document.querySelectorAll('li');
+            var frutas = ['🍎 Manzana', '🍌 Banana', '🍊 Naranja', 
+                         '🍇 Uvas', '🍓 Frutilla', '🍍 Piña'];
+            
+            for (var i = 0; i < todos.length; i++) {
+                todos[i].textContent = frutas[i];
+                todos[i].classList.remove('modificado', 'especial');
+            }
+            console.log('Lista restaurada');
+        }
+        
+        // Seleccionar botones
+        var btnPrimero = document.getElementById('btnPrimero');
+        var btnSegundo = document.getElementById('btnSegundo');
+        var btnTercero = document.getElementById('btnTercero');
+        var btnCuarto = document.getElementById('btnCuarto');
+        var btnUltimo = document.getElementById('btnUltimo');
+        var btnPares = document.getElementById('btnPares');
+        var btnRestaurar = document.getElementById('btnRestaurar');
+        
+        // Conectar botones
+        btnPrimero.addEventListener('click', modificarPrimero);
+        btnSegundo.addEventListener('click', modificarSegundo);
+        btnTercero.addEventListener('click', modificarTercero);
+        btnCuarto.addEventListener('click', modificarCuarto);
+        btnUltimo.addEventListener('click', modificarUltimo);
+        btnPares.addEventListener('click', modificarPares);
+        btnRestaurar.addEventListener('click', restaurarTodo);
+        
+        // Configurar botones
+        var botones = document.querySelectorAll('button');
+        for (var i = 0; i < botones.length; i++) {
+            botones[i].style.padding = '8px 12px';
+            botones[i].style.margin = '5px';
+            botones[i].style.cursor = 'pointer';
+            botones[i].style.borderRadius = '4px';
+            botones[i].style.border = '1px solid #ccc';
+        }
+        
+        console.log('=== EJERCICIO 16: :nth-child() ===');
+        console.log(':nth-child(1) - Primer elemento');
+        console.log(':nth-child(2) - Segundo elemento');
+        console.log(':last-child - Último elemento');
+        console.log(':nth-child(even) - Elementos pares');
+    </script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccionar Primer Elemento por Clase</title>
+    <style>
+        .caja {
+            width: 150px;
+            height: 150px;
+            margin: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 10px;
+            transition: border 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <h2>Ejercicio 11: Seleccionar el Primer Elemento</h2>
+    <p>querySelector('.caja') selecciona solo el PRIMER elemento con clase "caja"</p>
+    
+    <div style="margin: 20px 0;">
+        <div class="caja">Caja 1</div>
+        <div class="caja">Caja 2</div>
+        <div class="caja">Caja 3</div>
+        <div class="caja">Caja 4</div>
+    </div>
+    
+    <div style="margin-top: 20px;">
+        <button id="btnBordeRojo">Borde Rojo Sólido</button>
+        <button id="btnBordeAzul">Borde Azul Punteado</button>
+        <button id="btnBordeVerde">Borde Verde Doble</button>
+        <button id="btnBordeNegro">Borde Negro Grueso</button>
+        <button id="btnQuitarBorde">Quitar Borde</button>
+    </div>
+    
+    <p id="mensaje" style="margin-top: 20px; font-weight: bold; color: #333;"></p>
+    
+    <script>
+        // EJERCICIO 11: Seleccionar Primer Elemento por Clase
+        
+        // PASO 1: Seleccionar el PRIMER elemento con clase "caja"
+        var primerCaja = document.querySelector('.caja');
+        var mensaje = document.getElementById('mensaje');
+        
+        // Mostrar cuál es el primer elemento
+        mensaje.textContent = 'Primer elemento seleccionado: "' + primerCaja.textContent + '"';
+        
+        // PASO 2: Seleccionar los botones
+        var btnBordeRojo = document.getElementById('btnBordeRojo');
+        var btnBordeAzul = document.getElementById('btnBordeAzul');
+        var btnBordeVerde = document.getElementById('btnBordeVerde');
+        var btnBordeNegro = document.getElementById('btnBordeNegro');
+        var btnQuitarBorde = document.getElementById('btnQuitarBorde');
+        
+        // PASO 3: Función para borde ROJO sólido
+        function agregarBordeRojo() {
+            primerCaja.style.border = '4px solid red';
+            console.log('Borde rojo sólido agregado a: ' + primerCaja.textContent);
+        }
+        
+        // PASO 4: Función para borde AZUL punteado
+        function agregarBordeAzul() {
+            primerCaja.style.border = '4px dashed blue';
+            console.log('Borde azul punteado agregado a: ' + primerCaja.textContent);
+        }
+        
+        // PASO 5: Función para borde VERDE doble
+        function agregarBordeVerde() {
+            primerCaja.style.border = '4px double green';
+            console.log('Borde verde doble agregado a: ' + primerCaja.textContent);
+        }
+        
+        // PASO 6: Función para borde NEGRO grueso
+        function agregarBordeNegro() {
+            primerCaja.style.border = '6px solid black';
+            console.log('Borde negro grueso agregado a: ' + primerCaja.textContent);
+        }
+        
+        // PASO 7: Función para QUITAR borde
+        function quitarBorde() {
+            primerCaja.style.border = 'none';
+            console.log('Borde quitado de: ' + primerCaja.textContent);
+        }
+        
+        // PASO 8: Conectar botones con funciones
+        btnBordeRojo.addEventListener('click', agregarBordeRojo);
+        btnBordeAzul.addEventListener('click', agregarBordeAzul);
+        btnBordeVerde.addEventListener('click', agregarBordeVerde);
+        btnBordeNegro.addEventListener('click', agregarBordeNegro);
+        btnQuitarBorde.addEventListener('click', quitarBorde);
+        
+        // PASO 9: Configurar estilos de botones
+        function configurarBoton(boton, color) {
+            boton.style.padding = '10px 15px';
+            boton.style.margin = '5px';
+            boton.style.backgroundColor = color;
+            boton.style.color = 'white';
+            boton.style.border = 'none';
+            boton.style.borderRadius = '5px';
+            boton.style.cursor = 'pointer';
+        }
+        
+        configurarBoton(btnBordeRojo, '#e74c3c');
+        configurarBoton(btnBordeAzul, '#3498db');
+        configurarBoton(btnBordeVerde, '#2ecc71');
+        configurarBoton(btnBordeNegro, '#2c3e50');
+        configurarBoton(btnQuitarBorde, '#95a5a6');
+        
+        // PASO 10: Mensaje inicial
+        console.log('=== EJERCICIO 11: querySelector() ===');
+        console.log('Primer elemento con clase "caja": ' + primerCaja.textContent);
+        console.log('Usa los botones para agregar diferentes bordes');
+        console.log('querySelector(\'.caja\') selecciona solo el PRIMER elemento');
+    </script>
+</body>
+</html>

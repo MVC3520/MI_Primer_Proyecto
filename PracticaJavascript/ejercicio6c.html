@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tareas Interactiva</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        #formularioTarea {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        #nuevaTarea {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        #agregarTarea {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        #agregarTarea:hover {
+            background-color: #45a049;
+        }
+        
+        #listaTareas {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .tarea {
+            background-color: #f9f9f9;
+            margin: 8px 0;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 5px solid #2196F3;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .tarea:hover {
+            background-color: #f1f1f1;
+            transform: translateX(5px);
+        }
+        
+        .tarea.completada {
+            opacity: 0.7;
+            border-left-color: #4CAF50;
+            text-decoration: line-through;
+        }
+        
+        .botones-tarea {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .btn-completar, .btn-eliminar {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .btn-completar {
+            background-color: #2196F3;
+            color: white;
+        }
+        
+        .btn-eliminar {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        .contador {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e8f5e8;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>📝 Gestor de Tareas</h1>
+    
+    <div id="formularioTarea">
+        <input type="text" id="nuevaTarea" placeholder="Escribe una nueva tarea...">
+        <button id="agregarTarea">➕ Agregar</button>
+    </div>
+    
+    <ul id="listaTareas">
+        <!-- Las tareas se agregarán dinámicamente -->
+    </ul>
+    
+    <div class="contador" id="contadorTareas">
+        Tareas pendientes: 0
+    </div>
+    
+    <script>
+        // SOLUCIÓN COMPLETA Y FUNCIONAL
+        
+        // 1. Seleccionar todos los elementos necesarios
+        var listaTareas = document.getElementById('listaTareas');
+        var inputTarea = document.getElementById('nuevaTarea');
+        var botonAgregar = document.getElementById('agregarTarea');
+        var contador = document.getElementById('contadorTareas');
+        
+        // 2. Variable para llevar el conteo de IDs
+        var siguienteId = 1;
+        
+        // 3. Tareas iniciales
+        var tareasIniciales = [
+            'Aprender JavaScript',
+            'Practicar eventos',
+            'Crear proyectos'
+        ];
+        
+        // 4. Función para crear una tarea en el DOM
+        function crearTareaEnDOM(id, texto) {
+            var tarea = document.createElement('li');
+            tarea.className = 'tarea';
+            tarea.dataset.id = id; // ATRIBUTO data-id en el LI
+            
+            // Crear el contenido interno como espera el CSS
+            tarea.innerHTML = `
+                <span class="texto-tarea">${texto}</span>
+                <div class="botones-tarea">
+                    <button class="btn-completar">Completar</button>
+                    <button class="btn-eliminar" data-id="${id}">Eliminar</button>
+                </div>
+            `;
+            
+            return tarea;
+        }
+        
+        // 5. Función para manejar el clic en "Eliminar"
+        function manejarEliminacion(evento) {
+            // Asegurar que solo afecte al botón "Eliminar"
+            if (evento.target.className === 'btn-eliminar') {
+                
+                // PASO IMPORTANTE: Obtener el ID desde dataset.id del BOTÓN
+                var idTarea = evento.target.dataset.id;
+                
+                console.log('Botón eliminar clicado. ID: ' + idTarea);
+                
+                // Buscar la tarea por su data-id
+                var todasLasTareas = document.querySelectorAll('.tarea');
+                
+                for (var i = 0; i < todasLasTareas.length; i++) {
+                    var tarea = todasLasTareas[i];
+                    
+                    // Comparar el data-id de la tarea con el del botón
+                    if (tarea.dataset.id === idTarea) {
+                        // Eliminar solo esa tarea del DOM
+                        tarea.remove();
+                        actualizarContador();
+                        console.log('✅ Tarea eliminada correctamente');
+                        break;
+                    }
+                }
+            }
+            
+            // Manejar también el botón "Completar"
+            if (evento.target.className === 'btn-completar') {
+                var tarea = evento.target.closest('.tarea');
+                tarea.classList.toggle('completada');
+                
+                if (tarea.classList.contains('completada')) {
+                    evento.target.textContent = 'Reactivar';
+                    evento.target.style.backgroundColor = '#FF9800';
+                } else {
+                    evento.target.textContent = 'Completar';
+                    evento.target.style.backgroundColor = '#2196F3';
+                }
+                
+                actualizarContador();
+            }
+        }
+        
+        // 6. Función para agregar nueva tarea
+        function agregarNuevaTarea() {
+            var texto = inputTarea.value.trim();
+            
+            if (texto === '') {
+                alert('Por favor, escribe una tarea');
+                return;
+            }
+            
+            // Crear y agregar la nueva tarea
+            var nuevaTarea = crearTareaEnDOM(siguienteId, texto);
+            listaTareas.appendChild(nuevaTarea);
+            
+            // Limpiar el input y actualizar
+            inputTarea.value = '';
+            inputTarea.focus();
+            siguienteId++;
+            actualizarContador();
+            
+            console.log('Nueva tarea agregada con ID: ' + (siguienteId - 1));
+        }
+        
+        // 7. Función para actualizar el contador
+        function actualizarContador() {
+            var totalTareas = listaTareas.children.length;
+            var tareasPendientes = document.querySelectorAll('.tarea:not(.completada)').length;
+            
+            contador.textContent = 'Tareas: ' + tareasPendientes + ' pendientes de ' + totalTareas + ' total';
+        }
+        
+        // 8. Función para inicializar la lista
+        function inicializarLista() {
+            // Agregar tareas iniciales
+            for (var i = 0; i < tareasIniciales.length; i++) {
+                var elemento = crearTareaEnDOM(siguienteId, tareasIniciales[i]);
+                listaTareas.appendChild(elemento);
+                siguienteId++;
+            }
+            
+            // Agregar UN solo event listener a la lista (Event Delegation)
+            listaTareas.addEventListener('click', manejarEliminacion);
+            
+            // Agregar evento al botón de agregar
+            botonAgregar.addEventListener('click', agregarNuevaTarea);
+            
+            // Agregar evento al input para usar Enter
+            inputTarea.addEventListener('keypress', function(evento) {
+                if (evento.key === 'Enter') {
+                    agregarNuevaTarea();
+                }
+            });
+            
+            // Actualizar contador inicial
+            actualizarContador();
+            
+            console.log('✅ Lista inicializada correctamente');
+            console.log('Haz clic en "Eliminar" para probar la funcionalidad');
+        }
+        
+        // 9. Ejecutar cuando cargue la página
+        window.onload = inicializarLista;
+    </script>
+</body>
+</html>

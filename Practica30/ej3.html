@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #texto {
+            display: none;
+        
+        }
+    
+    </style>
+</head>
+<body>
+    <button id="toggleBtn">Mostrar</button>
+    <p id="texto" >¡Texto secreto!</p>
+<script>
+  const boton= document.getElementById('toggleBtn');
+  boton.addEventListener('click', function() {
+    const texto = document.getElementById('texto');
+    if (texto.style.display === 'none') {
+      texto.style.display = 'block';
+      boton.textContent = 'Ocultar';
+      boton.style.border = '2px solid red'; 
+    } else {
+      texto.style.display = 'none';
+      boton.textContent = 'Mostrar';
+    }
+    
+
+  });
+    
+</script>
+</body>
+</html>

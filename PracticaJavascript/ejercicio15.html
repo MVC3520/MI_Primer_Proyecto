@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capturar Texto de Input</title>
+</head>
+<body>
+    <h2>Ejercicio 15: Obtener Valor de Input</h2>
+    
+    <div style="margin: 20px 0;">
+        <input type="text" id="textoUsuario" placeholder="Escribe tu mensaje aquí..." 
+               style="padding: 10px; width: 300px; font-size: 16px;">
+    </div>
+    
+    <div style="margin: 15px 0;">
+        <button id="btnMostrar">Mostrar Texto</button>
+        <button id="btnLimpiar">Limpiar</button>
+    </div>
+    
+    <div style="background-color: #f0f8ff; padding: 15px; border-radius: 5px; margin-top: 20px;">
+        <h3>Tu texto aparecerá aquí:</h3>
+        <p id="areaResultado" style="font-size: 18px; color: #333; min-height: 30px;">
+            Esperando tu mensaje...
+        </p>
+    </div>
+    
+    <script>
+        // EJERCICIO 15: Obtener valor de input
+        
+        // PASO 1: Seleccionar elementos
+        var inputTexto = document.getElementById('textoUsuario');
+        var btnMostrar = document.getElementById('btnMostrar');
+        var btnLimpiar = document.getElementById('btnLimpiar');
+        var areaResultado = document.getElementById('areaResultado');
+        
+        // PASO 2: Función principal - Obtener y mostrar texto
+        function mostrarTexto() {
+            // OBTENER el valor del input
+            var textoIngresado = inputTexto.value;
+            
+            console.log('Texto capturado: "' + textoIngresado + '"');
+            
+            // Verificar si hay texto
+            if (textoIngresado === '') {
+                areaResultado.textContent = '⚠️ Por favor, escribe algo primero';
+                areaResultado.style.color = 'orange';
+            } else {
+                // MOSTRAR el texto en el párrafo
+                areaResultado.textContent = '📝 Dijiste: "' + textoIngresado + '"';
+                areaResultado.style.color = 'green';
+                
+                // Opcional: limpiar el input después de mostrar
+                // inputTexto.value = '';
+            }
+        }
+        
+        // PASO 3: Función para limpiar todo
+        function limpiarTodo() {
+            inputTexto.value = '';
+            areaResultado.textContent = 'Esperando tu mensaje...';
+            areaResultado.style.color = '#333';
+            inputTexto.focus(); // Volver al input
+            console.log('Todo limpiado');
+        }
+        
+        // PASO 4: Conectar botones con funciones
+        btnMostrar.addEventListener('click', mostrarTexto);
+        btnLimpiar.addEventListener('click', limpiarTodo);
+        
+        // PASO 5: También funcionar con la tecla Enter
+        inputTexto.addEventListener('keypress', function(evento) {
+            if (evento.key === 'Enter') {
+                mostrarTexto();
+            }
+        });
+        
+        // PASO 6: Configurar estilo de botones
+        function configurarBoton(boton, color) {
+            boton.style.padding = '10px 20px';
+            boton.style.margin = '5px';
+            boton.style.backgroundColor = color;
+            boton.style.color = 'white';
+            boton.style.border = 'none';
+            boton.style.borderRadius = '5px';
+            boton.style.cursor = 'pointer';
+            boton.style.fontSize = '16px';
+        }
+        
+        configurarBoton(btnMostrar, '#3498db');
+        configurarBoton(btnLimpiar, '#e74c3c');
+        
+        // PASO 7: Mensaje inicial
+        console.log('=== EJERCICIO 15: Obtener valor de input ===');
+        console.log('Para obtener texto: input.value');
+        console.log('Para mostrar texto: elemento.textContent');
+        console.log('Escribe en el campo y haz clic en "Mostrar Texto"');
+    </script>
+</body>
+</html>

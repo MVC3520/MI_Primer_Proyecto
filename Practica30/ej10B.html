@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acordeón Simple</title>
+    <style>
+        /* Mejoras visuales mínimas pero agradables */
+        body {
+            font-family: system-ui, 'Segoe UI', sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 1rem;
+        }
+        .acordeon {
+            max-width: 500px;
+            width: 100%;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .titulo {
+            background: #fff;
+            padding: 1rem 1.5rem;
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-bottom: 1px solid #e2e8f0;
+            cursor: pointer;
+            transition: background 0.2s;
+           /* user-select: none;*/
+        }
+        .titulo:hover {
+            background: #f8fafc;
+        }
+        /* Clave: mostrar solo el contenido que sigue a un título activo */
+        .contenido {
+            display: none;
+            padding: 1rem 1.5rem;
+            background: #fefefe;
+            border-bottom: 1px solid #e2e8f0;
+            line-height: 1.5;
+        }
+        .titulo.activo + .contenido {
+            display: block;
+        }
+        /* Pequeño indicador visual (opcional, sin modificar HTML) */
+        .titulo::before {
+            content: "▶";
+            display: inline-block;
+            font-size: 0.75rem;
+            margin-right: 0.75rem;
+            transition: transform 0.2s;
+            color: #5b6e8c;
+        }
+        .titulo.activo::before {
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="acordeon">
+        <h3 class="titulo">Sección 1</h3>
+        <div class="contenido">Contenido de la sección 1 — ahora funciona correctamente.</div>
+
+        <h3 class="titulo">Sección 2</h3>
+        <div class="contenido">Contenido de la sección 2 — haz clic y solo esta sección se abre/cierra.</div>
+    </div>
+
+    <script>
+        // JavaScript sencillo y sin errores
+        const titulos = document.querySelectorAll('.titulo');
+
+        titulos.forEach(titulo => {
+            titulo.addEventListener('click', function() {
+                // Si este título ya está activo, lo desactivamos
+                if (this.classList.contains('activo')) {
+                    this.classList.remove('activo');
+                } else {
+                    // Cerramos todos los títulos
+                    titulos.forEach(t => t.classList.remove('activo'));
+                    // Abrimos el actual
+                    this.classList.add('activo');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

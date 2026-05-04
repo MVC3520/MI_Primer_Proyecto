@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccionar por ID y Cambiar Texto</title>
+</head>
+<body>
+    <h1 id="miEncabezado">Texto Original</h1>
+    
+    <div style="text-align: center; margin-top: 30px;">
+        <button id="btnCambiar">Cambiar Texto</button>
+        <button id="btnRestaurar">Restaurar Original</button>
+        <button id="btnPersonalizado">Mi Texto</button>
+    </div>
+    
+    <div style="text-align: center; margin-top: 20px;">
+        <input type="text" id="inputTexto" placeholder="Escribe tu texto aquí" style="padding: 8px; width: 250px;">
+        <button id="btnUsarInput">Usar este Texto</button>
+    </div>
+    
+    <script>
+        // ============================================
+        // EJERCICIO 9: Seleccionar por ID y Cambiar Texto
+        // ============================================
+        
+        // PASO 1: Seleccionar el elemento por su ID
+        var encabezado = document.getElementById('miEncabezado');
+        
+        // PASO 2: Aplicar estilos iniciales al encabezado
+        encabezado.style.textAlign = 'center';
+        encabezado.style.fontFamily = 'Arial, sans-serif';
+        encabezado.style.color = '#2c3e50';
+        encabezado.style.padding = '20px';
+        encabezado.style.margin = '30px auto';
+        encabezado.style.backgroundColor = '#ecf0f1';
+        encabezado.style.borderRadius = '10px';
+        encabezado.style.width = '80%';
+        encabezado.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
+        
+        // Guardar el texto original para poder restaurarlo
+        var textoOriginal = encabezado.textContent;
+        
+        // PASO 3: Función para cambiar el texto
+        function cambiarTexto() {
+            console.log('Botón "Cambiar Texto" presionado');
+            
+            // CAMBIAR el contenido de texto del encabezado
+            encabezado.textContent = '¡Texto Cambiado con JavaScript!';
+            
+            // Cambiar estilo para mostrar que fue modificado
+            encabezado.style.color = 'white';
+            encabezado.style.backgroundColor = '#3498db';
+            encabezado.style.boxShadow = '0 6px 12px rgba(52, 152, 219, 0.3)';
+        }
+        
+        // PASO 4: Función para restaurar el texto original
+        function restaurarTexto() {
+            console.log('Botón "Restaurar" presionado');
+            
+            // RESTAURAR el texto original
+            encabezado.textContent = textoOriginal;
+            
+            // Restaurar estilos originales
+            encabezado.style.color = '#2c3e50';
+            encabezado.style.backgroundColor = '#ecf0f1';
+            encabezado.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
+        }
+        
+        // PASO 5: Función para texto personalizado
+        function textoPersonalizado() {
+            console.log('Botón "Mi Texto" presionado');
+            
+            // Cambiar a otro texto
+            encabezado.textContent = 'JavaScript es divertido!';
+            
+            // Cambiar estilos
+            encabezado.style.color = 'white';
+            encabezado.style.backgroundColor = '#2ecc71';
+        }
+        
+        // PASO 6: Función para usar texto del input
+        function usarTextoInput() {
+            var input = document.getElementById('inputTexto');
+            var nuevoTexto = input.value.trim();
+            
+            if (nuevoTexto === '') {
+                alert('Por favor, escribe algo en el campo');
+                return;
+            }
+            
+            console.log('Usando texto del input: ' + nuevoTexto);
+            
+            // Cambiar texto por el del input
+            encabezado.textContent = nuevoTexto;
+            
+            // Cambiar estilos
+            encabezado.style.color = 'white';
+            encabezado.style.backgroundColor = '#e74c3c';
+        }
+        
+        // PASO 7: Seleccionar botones por sus IDs
+        var btnCambiar = document.getElementById('btnCambiar');
+        var btnRestaurar = document.getElementById('btnRestaurar');
+        var btnPersonalizado = document.getElementById('btnPersonalizado');
+        var btnUsarInput = document.getElementById('btnUsarInput');
+        
+        // PASO 8: Aplicar estilos a los botones
+        function estilizarBoton(boton, color) {
+            boton.style.padding = '10px 20px';
+            boton.style.margin = '5px';
+            boton.style.backgroundColor = color;
+            boton.style.color = 'white';
+            boton.style.border = 'none';
+            boton.style.borderRadius = '5px';
+            boton.style.cursor = 'pointer';
+            boton.style.fontWeight = 'bold';
+            boton.style.transition = '0.3s';
+        }
+        
+        estilizarBoton(btnCambiar, '#3498db');     // Azul
+        estilizarBoton(btnRestaurar, '#95a5a6');   // Gris
+        estilizarBoton(btnPersonalizado, '#2ecc71'); // Verde
+        estilizarBoton(btnUsarInput, '#e74c3c');    // Rojo
+        
+        // Estilo para el input
+        var inputTexto = document.getElementById('inputTexto');
+        inputTexto.style.padding = '10px';
+        inputTexto.style.border = '2px solid #ddd';
+        inputTexto.style.borderRadius = '5px';
+        inputTexto.style.fontSize = '16px';
+        
+        // PASO 9: Agregar eventos a los botones
+        btnCambiar.addEventListener('click', cambiarTexto);
+        btnRestaurar.addEventListener('click', restaurarTexto);
+        btnPersonalizado.addEventListener('click', textoPersonalizado);
+        btnUsarInput.addEventListener('click', usarTextoInput);
+        
+        // PASO 10: Mensaje inicial en consola
+        console.log('=== EJERCICIO 9: Seleccionar por ID ===');
+        console.log('Elemento seleccionado: ' + encabezado);
+        console.log('Texto original: "' + textoOriginal + '"');
+        console.log('Usa los botones para cambiar el texto del encabezado');
+        console.log('Método usado: getElementById()');
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Delegation - Cambiar Colores</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            transition: background-color 0.5s ease;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        #contenedorBotones {
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            display: inline-block;
+            margin-top: 50px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        button {
+            padding: 14px 28px;
+            margin: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s;
+            background-color: #f0f0f0;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        #colorActual {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 40px;
+            padding: 15px 25px;
+            background-color: white;
+            display: inline-block;
+            border-radius: 8px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Selector de Colores con Event Delegation</h1>
+    
+    <div id="contenedorBotones">
+        <button data-color="lightblue" style="color: #0066cc;">Azul Claro</button>
+        <button data-color="lightcoral" style="color: #cd5c5c;">Coral Claro</button>
+        <button data-color="lightgreen" style="color: #32cd32;">Verde Claro</button>
+        <button data-color="lightpink" style="color: #ff69b4;">Rosa Claro</button>
+        <button data-color="lightyellow" style="color: #ffd700;">Amarillo Claro</button>
+        <button data-color="lavender" style="color: #967bb6;">Lavanda</button>
+    </div>
+    
+    <p id="colorActual">Color actual: Blanco</p>
+    
+    <script>
+        // PASO 1: Seleccionar elementos del DOM
+        var contenedorBotones = document.getElementById('contenedorBotones');
+        var colorActual = document.getElementById('colorActual');
+        var body = document.body;
+        
+        // PASO 2: Crear función para manejar clics (función común)
+        function manejarClicEnContenedor(evento) {
+            // event.target contiene el elemento específico que fue clicado
+            
+            // Verificamos que sea un botón lo que se clicó
+            if (evento.target.tagName === 'BUTTON') {
+                // Obtenemos el color desde data-color
+                var color = evento.target.dataset.color;
+                
+                // Obtenemos el nombre del botón
+                var nombreBoton = evento.target.textContent;
+                
+                // Cambiamos el color de fondo de toda la página
+                body.style.backgroundColor = color;
+                
+                // Actualizamos el texto que muestra el color actual
+                colorActual.textContent = 'Color actual: ' + nombreBoton;
+                colorActual.style.color = color;
+                
+                // Añadimos efecto visual al botón presionado
+                evento.target.style.boxShadow = 'inset 0 0 10px rgba(0,0,0,0.3)';
+                evento.target.style.transform = 'scale(0.95)';
+                
+                // Quitamos el efecto después de 200 milisegundos
+                setTimeout(function() {
+                    evento.target.style.boxShadow = '';
+                    evento.target.style.transform = '';
+                }, 200);
+                
+                // Mostramos información en la consola
+                console.log('Botón clicado: ' + nombreBoton);
+                console.log('Color aplicado: ' + color);
+                console.log('---');
+            }
+        }
+        
+        // PASO 3: Agregar un solo event listener al contenedor
+        // Esto es EVENT DELEGATION: un listener maneja todos los botones
+        contenedorBotones.addEventListener('click', manejarClicEnContenedor);
+        
+        // PASO OPCIONAL: Botón para resetear el color
+        function agregarBotonReset() {
+            var botonReset = document.createElement('button');
+            botonReset.textContent = 'Resetear a Blanco';
+            botonReset.style.backgroundColor = '#333';
+            botonReset.style.color = 'white';
+            botonReset.onclick = function() {
+                body.style.backgroundColor = 'white';
+                colorActual.textContent = 'Color actual: Blanco';
+                colorActual.style.color = '#333';
+                console.log('Color reseteado a blanco');
+            };
+            
+            contenedorBotones.appendChild(botonReset);
+        }
+        
+        // Llamamos a la función después de cargar la página
+        window.onload = function() {
+            agregarBotonReset();
+            console.log('Aplicación lista. Haz clic en los botones para cambiar colores.');
+        };
+    </script>
+</body>
+</html>
+<!--
+Explicación detallada del código
+
+Parte 1: HTML
+Cada botón tiene data-color="valor" donde "valor" es un color válido CSS
+
+Los colores pueden ser nombres (lightblue), hexadecimal (#f0f8ff), rgb, etc.
+
+Solo hay UN contenedor (#contenedorBotones) que agrupa todos los botones
+
+Parte 2: Event Delegation en acción
+javascript
+// MAL (sin event delegation): 8 botones = 8 event listeners
+boton1.addEventListener('click', funcion);
+boton2.addEventListener('click', funcion);
+// ... etc para los 8 botones
+
+// BIEN (con event delegation): 8 botones = 1 event listener
+contenedorBotones.addEventListener('click', manejarClicEnContenedor);
+Parte 3: Cómo sabe qué botón fue clicado
+javascript
+function manejarClicEnContenedor(evento) {
+    // evento.target = el elemento específico que recibió el clic
+    // Si hago clic en el botón "Azul Claro":
+    // evento.target = <button data-color="lightblue">Azul Claro</button>
+    
+    if (evento.target.tagName === 'BUTTON') {
+        // Solo ejecutamos el código si se hizo clic en un botón
+        var color = evento.target.dataset.color; // "lightblue"
+        // ... resto del código
+    }
+}
+Parte 4: "Burbujeo" de eventos
+Cuando haces clic en un botón:
+
+El clic ocurre en el botón
+
+El evento "sube" (burbujea) al padre (div contenedor)
+
+El padre tiene el event listener
+
+El listener se ejecuta y evento.target apunta al botón original
+
+Paso 9: Ventajas de este enfoque
+Rendimiento: 1 listener vs 8 listeners
+
+Menos memoria: Menos funciones en memoria
+
+Dinámico: Si añades botones nuevos, funcionan automáticamente
+
+Mantenible: Código más limpio y fácil de entender
+
+Paso 10: Prueba y experimenta
+Prueba básica: Haz clic en cada botón, el fondo debe cambiar
+
+Verifica consola: Abre DevTools (F12) y mira los mensajes
+
+Agrega botones dinámicamente:
+
+javascript
+// Intenta agregar esto en la consola:
+var nuevoBoton = document.createElement('button');
+nuevoBoton.textContent = 'Nuevo Color';
+nuevoBoton.dataset.color = 'orange';
+contenedorBotones.appendChild(nuevoBoton);
+Nota: ¡El nuevo botón funciona sin agregar event listeners!
+
+Resumen final:
+Event Delegation = Poner UN event listener en el padre que maneje eventos de TODOS los hijos.
+
+Beneficios:
+
+Mejor rendimiento
+
+Funciona con elementos nuevos
+
+Código más simple
+
+Fácil mantenimiento
+-->

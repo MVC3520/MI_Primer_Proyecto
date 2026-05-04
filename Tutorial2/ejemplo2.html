@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delegación de eventos - Ejemplo paso a paso</title>
+    <style>
+    ul { list-style: none; padding: 0; max-width: 300px; }
+    li { background: #f9f9f9; margin: 5px; padding: 8px; display: flex; justify-content: space-between; border: 1px solid #ddd; }
+    button.eliminar { background: #e74c3c; color: white; border: none; border-radius: 4px; cursor: pointer; }
+    button.eliminar:hover { background: #c0392b; }
+  </style>
+</head>
+<body>
+  <h2>📋 Lista de tareas (con delegación)</h2>
+<ul id="listaTareas">
+  <li>Tarea 1 <button class="eliminar">X</button></li>
+  <li>Tarea 2 <button class="eliminar">X</button></li>
+</ul>
+<button id="agregarBtn">➕ Agregar tarea</button>
+<p id="mensaje"></p>
+
+<script>
+  const lista = document.getElementById('listaTareas');
+  const agregarBtn = document.getElementById('agregarBtn');
+  const mensaje = document.getElementById('mensaje');
+
+  // DELEGACIÓN: el padre (ul) escucha todos los clics
+  lista.addEventListener('click', (e) => {
+    // Preguntamos: ¿el clic fue en un botón con clase "eliminar"?
+    if (e.target.classList.contains('eliminar')) {
+      const li = e.target.closest('li'); // subimos hasta el <li>
+      const texto = li.firstChild.textContent.trim(); // guardamos el texto para el mensaje
+      li.remove();
+      mensaje.textContent = `🗑️ Eliminaste: "${texto}"`;
+      setTimeout(() => mensaje.textContent = '', 1500);
+    }
+  });
+
+  // Función para agregar nuevas tareas
+  agregarBtn.addEventListener('click', () => {
+    const nuevaTarea = prompt('Escribe la nueva tarea:');
+    if (nuevaTarea && nuevaTarea.trim() !== '') {
+      const nuevoLi = document.createElement('li');
+      nuevoLi.innerHTML = `${nuevaTarea} <button class="eliminar">X</button>`;
+      lista.appendChild(nuevoLi);
+      mensaje.textContent = `✅ Agregaste: "${nuevaTarea}"`;
+      setTimeout(() => mensaje.textContent = '', 1500);
+    }
+  });
+</script>
+  
+</body>
+</html>

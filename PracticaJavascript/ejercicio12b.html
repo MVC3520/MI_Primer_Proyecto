@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>querySelectorAll Simple</title>
+</head>
+<body>
+    <h3>Lista de Tareas:</h3>
+    <p class="tarea">Estudiar JavaScript</p>
+    <p class="tarea">Practicar ejercicios</p>
+    <p class="tarea">Crear proyecto</p>
+    
+    <button onclick="cambiarColor('red')">Rojo</button>
+    <button onclick="cambiarColor('blue')">Azul</button>
+    <button onclick="cambiarColor('green')">Verde</button>
+    
+    <script>
+        // Función para cambiar color de TODAS las tareas
+        function cambiarColor(color) {
+            // Seleccionar TODOS los elementos con clase "tarea"
+            var tareas = document.querySelectorAll('.tarea');
+            
+            // Recorrer cada elemento
+            for (var i = 0; i < tareas.length; i++) {
+                tareas[i].style.color = color;
+            }
+            
+            console.log(tareas.length + ' elementos cambiados a ' + color);
+        }
+        
+        console.log('querySelectorAll selecciona múltiples elementos');
+    </script>
+</body>
+</html>

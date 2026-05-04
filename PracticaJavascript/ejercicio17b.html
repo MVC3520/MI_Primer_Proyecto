@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div id="contenedorPrincipal">
+        <p class="item">Texto 1</p>
+        <p class="item">Texto 2</p>
+        <p class="item">Texto 3</p>
+    </div>
+
+    <div id="otroContenedor">
+        <p class="item">Texto A</p>
+        <p class="item">Texto B</p>
+    </div>
+
+    <button onclick="modificar()">Modificar Primer Contenedor</button>
+    
+    <script>
+        function modificar() {
+            // 1. PRIMERO: Seleccionar contenedor por ID
+            var contenedor = document.getElementById('contenedorPrincipal');
+            
+            // 2. LUEGO: Buscar elementos DENTRO de ese contenedor
+            var items = contenedor.querySelectorAll('.item');
+            
+            // 3. Modificar cada elemento
+            for (var i = 0; i < items.length; i++) {
+                items[i].textContent = "Modificado: " + items[i].textContent;
+                items[i].style.backgroundColor = "lightblue";
+            }
+            
+            console.log("Modificados: " + items.length + " elementos");
+            console.log("Solo del contenedor con ID: contenedorPrincipal");
+        }
+    </script>
+</body>
+</html>

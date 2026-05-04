@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validación de Email</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        #emailInput {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        
+        #emailInput:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        
+        .valido {
+            border-color: #2ecc71 !important;
+        }
+        
+        .invalido {
+            border-color: #e74c3c !important;
+        }
+        
+        #mensajeEmail {
+            margin-top: 8px;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            min-height: 20px;
+        }
+        
+        .mensaje-valido {
+            color: #2ecc71;
+            background-color: #e8f6f3;
+        }
+        
+        .mensaje-invalido {
+            color: #e74c3c;
+            background-color: #fdeaea;
+        }
+        
+        .mensaje-neutral {
+            color: #7f8c8d;
+            background-color: #f8f9fa;
+        }
+        
+        #btnEnviar {
+            padding: 12px 30px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        #btnEnviar:hover {
+            background-color: #2980b9;
+        }
+        
+        #btnEnviar:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+        
+        .ejemplos {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
+        .ejemplos h3 {
+            margin-top: 0;
+            color: #555;
+        }
+        
+        .ejemplo-valido {
+            color: #2ecc71;
+        }
+        
+        .ejemplo-invalido {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <h1>Validación de Email en Tiempo Real</h1>
+    
+    <div class="form-group">
+        <label for="emailInput">Correo electrónico:</label>
+        <input type="email" id="emailInput" placeholder="tu@email.com">
+        <div id="mensajeEmail" class="mensaje-neutral">
+            Escribe tu email para validarlo
+        </div>
+    </div>
+    
+    <button id="btnEnviar" disabled>Enviar Formulario</button>
+    
+    <div class="ejemplos">
+        <h3>Ejemplos de emails:</h3>
+        <p class="ejemplo-valido">✅ Válidos: usuario@dominio.com, nombre.apellido@empresa.com</p>
+        <p class="ejemplo-invalido">❌ Inválidos: usuario, usuario@, usuario@dominio</p>
+    </div>
+
+    <script>
+        // EJERCICIO 20: Validación de Email en Tiempo Real
+        
+        // 1. Seleccionar elementos
+        var emailInput = document.getElementById('emailInput');
+        var mensajeEmail = document.getElementById('mensajeEmail');
+        var btnEnviar = document.getElementById('btnEnviar');
+        
+        // 2. Función para validar email
+        function validarEmail(email) {
+            // Verificar que no esté vacío
+            if (email === '') {
+                return {
+                    valido: false,
+                    mensaje: 'El email no puede estar vacío'
+                };
+            }
+            
+            // Verificar que tenga @
+            if (!email.includes('@')) {
+                return {
+                    valido: false,
+                    mensaje: 'El email debe contener @'
+                };
+            }
+            
+            // Separar en partes: antes y después del @
+            var partes = email.split('@');
+            
+            // Verificar que haya algo antes y después del @
+            if (partes.length !== 2 || partes[0] === '' || partes[1] === '') {
+                return {
+                    valido: false,
+                    mensaje: 'Formato de email incorrecto'
+                };
+            }
+            
+            // Verificar que después del @ haya un punto
+            if (!partes[1].includes('.')) {
+                return {
+                    valido: false,
+                    mensaje: 'Falta el dominio (ej: gmail.com)'
+                };
+            }
+            
+            // Verificar que haya algo después del último punto
+            var dominio = partes[1];
+            var puntoDespues = dominio.split('.');
+            if (puntoDespues.length < 2 || puntoDespues[puntoDespues.length - 1] === '') {
+                return {
+                    valido: false,
+                    mensaje: 'Dominio incompleto'
+                };
+            }
+            
+            // Si pasa todas las validaciones
+            return {
+                valido: true,
+                mensaje: '✅ Email válido'
+            };
+        }
+        
+        // 3. Función para actualizar interfaz
+        function actualizarInterfaz(resultado) {
+            // Limpiar clases anteriores
+            emailInput.classList.remove('valido', 'invalido');
+            mensajeEmail.classList.remove('mensaje-valido', 'mensaje-invalido', 'mensaje-neutral');
+            
+            if (emailInput.value === '') {
+                // Campo vacío
+                mensajeEmail.textContent = 'Escribe tu email para validarlo';
+                mensajeEmail.classList.add('mensaje-neutral');
+                btnEnviar.disabled = true;
+            } else if (resultado.valido) {
+                // Email válido
+                emailInput.classList.add('valido');
+                mensajeEmail.textContent = resultado.mensaje;
+                mensajeEmail.classList.add('mensaje-valido');
+                btnEnviar.disabled = false;
+            } else {
+                // Email inválido
+                emailInput.classList.add('invalido');
+                mensajeEmail.textContent = resultado.mensaje;
+                mensajeEmail.classList.add('mensaje-invalido');
+                btnEnviar.disabled = true;
+            }
+        }
+        
+        // 4. Escuchar evento INPUT (cada vez que se escribe)
+        emailInput.addEventListener('input', function() {
+            var email = this.value;
+            var resultado = validarEmail(email);
+            
+            console.log('Email escrito:', email);
+            console.log('Resultado validación:', resultado);
+            
+            actualizarInterfaz(resultado);
+        });
+        
+        // 5. Evento para el botón enviar
+        btnEnviar.addEventListener('click', function() {
+            var email = emailInput.value;
+            var resultado = validarEmail(email);
+            
+            if (resultado.valido) {
+                alert('Formulario enviado correctamente!\nEmail: ' + email);
+                // Aquí normalmente enviaríamos el formulario
+            } else {
+                alert('Por favor, corrige el email antes de enviar');
+                emailInput.focus();
+            }
+        });
+        
+        // 6. Mensaje inicial
+        console.log('=== VALIDACIÓN DE EMAIL EN TIEMPO REAL ===');
+        console.log('Escribe en el campo de email y observa la validación');
+        console.log('El botón Enviar se activa solo cuando el email es válido');
+    </script>
+</body>
+</html>
